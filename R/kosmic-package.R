@@ -1,3 +1,8 @@
+#' @details 
+#' A package to estimate the distribution of reference values from a mix of
+#' physiological and abnormal results.
 #' @useDynLib kosmic
 #' @importFrom Rcpp sourceCpp
-NULL
+#' @importFrom glue glue
+#' @import rlang
+"_PACKAGE"
