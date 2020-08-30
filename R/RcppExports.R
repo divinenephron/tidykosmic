@@ -5,6 +5,6 @@
 #' 
 #' @export
 call_kosmic_alg <- function(inputVec, n, decimals, bootstrap, bootstrap_seed, threads, t1min, t1max, t2min, t2max, sd, tol) {
-    .Call('_rkosmic_call_kosmic_alg', PACKAGE = 'rkosmic', inputVec, n, decimals, bootstrap, bootstrap_seed, threads, t1min, t1max, t2min, t2max, sd, tol)
+    .Call('_kosmic_call_kosmic_alg', PACKAGE = 'kosmic', inputVec, n, decimals, bootstrap, bootstrap_seed, threads, t1min, t1max, t2min, t2max, sd, tol)
 }
 

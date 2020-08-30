@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // call_kosmic_alg
 NumericVector call_kosmic_alg(NumericVector inputVec, int n, int decimals, int bootstrap, int bootstrap_seed, int threads, double t1min, double t1max, double t2min, double t2max, double sd, double tol);
-RcppExport SEXP _rkosmic_call_kosmic_alg(SEXP inputVecSEXP, SEXP nSEXP, SEXP decimalsSEXP, SEXP bootstrapSEXP, SEXP bootstrap_seedSEXP, SEXP threadsSEXP, SEXP t1minSEXP, SEXP t1maxSEXP, SEXP t2minSEXP, SEXP t2maxSEXP, SEXP sdSEXP, SEXP tolSEXP) {
+RcppExport SEXP _kosmic_call_kosmic_alg(SEXP inputVecSEXP, SEXP nSEXP, SEXP decimalsSEXP, SEXP bootstrapSEXP, SEXP bootstrap_seedSEXP, SEXP threadsSEXP, SEXP t1minSEXP, SEXP t1maxSEXP, SEXP t2minSEXP, SEXP t2maxSEXP, SEXP sdSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -29,11 +29,11 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rkosmic_call_kosmic_alg", (DL_FUNC) &_rkosmic_call_kosmic_alg, 12},
+    {"_kosmic_call_kosmic_alg", (DL_FUNC) &_kosmic_call_kosmic_alg, 12},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_rkosmic(DllInfo *dll) {
+RcppExport void R_init_kosmic(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

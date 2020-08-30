@@ -2,4 +2,4 @@
 
 export(call_kosmic_alg)
 importFrom(Rcpp,sourceCpp)
-useDynLib(rkosmic)
+useDynLib(kosmic)
