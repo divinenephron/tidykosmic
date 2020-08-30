@@ -4,7 +4,7 @@
 #' Call Kosmic algorithm
 #' 
 #' @export
-call_kosmic_alg <- function(inputVec, n, decimals, bootstrap, bootstrap_seed, threads, t1min, t1max, t2min, t2max, sd, tol) {
-    .Call('_kosmic_call_kosmic_alg', PACKAGE = 'kosmic', inputVec, n, decimals, bootstrap, bootstrap_seed, threads, t1min, t1max, t2min, t2max, sd, tol)
+kosmic_impl <- function(input_vector, decimals, bootstrap, bootstrap_seed, threads, t1min, t1max, t2min, t2max, sd, tol) {
+    .Call('_kosmic_kosmic_impl', PACKAGE = 'kosmic', input_vector, decimals, bootstrap, bootstrap_seed, threads, t1min, t1max, t2min, t2max, sd, tol)
 }
 
