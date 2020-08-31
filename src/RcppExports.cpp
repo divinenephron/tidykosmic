@@ -26,22 +26,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// quantile_kosmic_impl
-NumericVector quantile_kosmic_impl(List param_list, NumericVector probs);
-RcppExport SEXP _kosmic_quantile_kosmic_impl(SEXP param_listSEXP, SEXP probsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type param_list(param_listSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type probs(probsSEXP);
-    rcpp_result_gen = Rcpp::wrap(quantile_kosmic_impl(param_list, probs));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_kosmic_kosmic_impl", (DL_FUNC) &_kosmic_kosmic_impl, 11},
-    {"_kosmic_quantile_kosmic_impl", (DL_FUNC) &_kosmic_quantile_kosmic_impl, 2},
     {NULL, NULL, 0}
 };
 

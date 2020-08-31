@@ -2,7 +2,11 @@
 
 S3method(print,kosmic)
 S3method(quantile,kosmic)
+export(dboxcox)
 export(kosmic_impl)
+export(pboxcox)
+export(qboxcox)
+export(rboxcox)
 export(set_kosmic_seed)
 import(rlang)
 importFrom(Rcpp,sourceCpp)

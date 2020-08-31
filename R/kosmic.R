@@ -196,7 +196,7 @@ quantile.kosmic <- function(x,
     abort(glue("`probs` must all be numbers between 0 and 1 (exclusive)."))
   }
   
-  res <- quantile_kosmic_impl(as.list(x$estimates), probs)
+  res <- qboxcox(probs, x$estimates["mean"], x$estimates["sd"], x$estimates["lambda"])
   
   if (names && length(probs) > 0L) {
     names(res) <- format_perc(probs)
