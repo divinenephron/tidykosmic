@@ -8,8 +8,8 @@
 #'
 #' @param n A positive number. The number of results used to estimate the
 #'   distribution.
-#' @param lambda A number. The lambda parameter of the Box-Cox transformation for the
-#'   estimated distribution. It which describes the skewness.
+#' @param lambda A number. The lambda parameter of the Box-Cox transformation
+#'   for the estimated distribution. It which describes the skewness.
 #' @param mean A number. The mean parameter shows the central point of the
 #'   estimated distribution before it undergoes Box-Cox transformation.
 #' @param sd A number. The spread of the estimated distribution before it
@@ -27,8 +27,8 @@
 #'
 #' @return
 #'
-#' A list with the class `kosmic`, containing the runtime parameters and results
-#' of the kosmic algorithm.
+#' A list with the class `kosmic`, containing a named vector of result, a named
+#' vector of kosmic settings, and the number of data points.
 new_kosmic <- function(n,
                        lambda,
                        mean,

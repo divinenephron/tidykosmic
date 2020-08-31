@@ -24,8 +24,8 @@ new_kosmic(
 \item{n}{A positive number. The number of results used to estimate the
 distribution.}
 
-\item{lambda}{A number. The lambda parameter of the Box-Cox transformation for the
-estimated distribution. It which describes the skewness.}
+\item{lambda}{A number. The lambda parameter of the Box-Cox transformation
+for the estimated distribution. It which describes the skewness.}
 
 \item{mean}{A number. The mean parameter shows the central point of the
 estimated distribution before it undergoes Box-Cox transformation.}
@@ -53,8 +53,8 @@ algorithm was configured for.}
 \item{abstol}{A number.}
 }
 \value{
-A list with the class `kosmic`, containing the runtime parameters and results
-of the kosmic algorithm.
+A list with the class `kosmic`, containing a named vector of result, a named
+vector of kosmic settings, and the number of data points.
 }
 \description{
 This creates an S3 object to hold the results of the kosmic library being run
