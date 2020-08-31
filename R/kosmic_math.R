@@ -29,13 +29,6 @@ boxcox_inverse <- function(ty, lambda, tolerance = 1e-6) {
   }
 }
 
-
-#' @rdname boxcox-distribution
-#' @export
-dboxcox <- function(x, mean, sd, lambda) {
-  dnorm(boxcox(x, lambda), mean, sd)
-}
-
 #' Box-Cox Transformed Normal Distribution
 #' 
 #' @rdname boxcox-distribution
