@@ -55,3 +55,25 @@ new_kosmic <- function(n,
   
   structure(elems, class = c("kosmic"))
 }
+
+kosmic_bridge <- function(input_vector,
+                          decimals,
+                          bootstrap,
+                          threads,
+                          t1min,
+                          t1max,
+                          t2min,
+                          t2max,
+                          sd,
+                          tol) {
+  bootstrap_seed <- get_kosmic_seed()
+  impl_result <- kosmic_impl(input_vector,
+                             decimals,
+                             bootstrap,
+                             bootstrap_seed,
+                             threads,
+                             t1min, t1max,
+                             t2min, t2max,
+                             sd, tol)
+  impl_result
+}
