@@ -12,4 +12,7 @@ Imports:
     Rcpp,
     rlang
 LinkingTo: Rcpp
+LazyData: true
 RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10)
