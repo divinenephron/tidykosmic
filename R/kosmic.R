@@ -1,3 +1,83 @@
+#' @rdname kosmic
+#' @export
+kosmic <- function(data, ...) {
+  UseMethod("kosmic")
+}
+
+#' @export
+kosmic.default <- function(data, ...) {
+  abort(glue("No `kosmic` method is defined for the class `{class(data)[1]}'."))
+}
+
+#' Estimate a Distribution of Physiological Results Using Kosmic
+#'
+#' @description Estimates the distribution of physiological results from a mixed
+#'   distribution of physiological and abnormal results, such as those found in
+#'   laboratory databases.
+#'
+#' @details The kosmic algorithm works by minimizes the difference between an
+#'   estimated parametric distribution and a truncated part of the observed
+#'   distribution, specifically, the Kolmogorov-Smirnov-distance between a
+#'   hypothetical Gaussian distribution and the observed distribution of test
+#'   results after Box-Cox-transformation.
+#'
+#' @param data A numeric vector. A mixed distribution of physiological and
+#'   abnormal results.
+#' @param decimals A positive integer. The number of digits of precision to
+#'   calculate the results to. Increasing this makes the algorithm take longer.
+#' @param t1min A quantile. Start of the search range for T1.
+#' @param t1max A quantile. End of the search range for T1.
+#' @param t2min A quantile. Start of the search range for T2.
+#' @param t2max A quantile. End of the search range for T1.
+#' @param sd_guess A quantile. The quantile used for the initial guess of the
+#'   standard deviation.
+#' @param tol The absolute convergence tolerance for the optimizer. The
+#'   algorithm stops if it is unable to reduce the cost by more than this
+#'   amount.
+#' @param threads A positive integer >= 1. The number of threads to use. Default
+#'   value is 1. Setting this to a higher number may speed up computation, but
+#'   not always. If a value higher than 1 is used the results may not be
+#'   reproduceable from run-to-run.
+#' @param na.rm Logical. If true, any NA and NaNs are removed from `data` before
+#'   calling kosmic.
+#'
+#' @return `kosmic` returns an object of class "kosmic". This contains the
+#'   following components:
+#'
+#'   \code{n} The number of data points used to estimate the distribution.
+#'
+#'   \code{estimates} A named vector of estimates for the ditribution:
+#'   \code{lambda}, \code{mean}, \code{sd}, \code{t1} and \code{t2}.
+#'
+#'   \code{settings} A named vector of the settings passed to \code{kosmic}.
+#'
+#' @examples
+#' set.seed(1)
+#' k <- kosmic(rnorm(10000, 16, 1), 1)
+#' quantile(k)
+#'
+#' @rdname kosmic
+#' @export
+kosmic.numeric <- function(data,
+                           decimals,
+                           t1min = 0.05,
+                           t1max = 0.30,
+                           t2min = 0.70,
+                           t2max = 0.95,
+                           sd_guess = 0.80,
+                           abstol = 1e-7,
+                           threads=1L,
+                           na.rm = FALSE,
+                           ...) {
+  if (na.rm) 
+    data <- data[!is.na(data)]
+  else if (anyNA(data)) 
+    stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
+  
+  kosmic_bridge(data, decimals, t1min, t1max, t2min, t2max,
+                sd_guess, abstol, threads)
+}
+
 #' Create a new kosmic result
 #'
 #' @description
@@ -76,34 +156,17 @@ new_kosmic <- function(n,
 
 #' Run Kosmic and Create an Object to Hold the Results
 #'
-#' @param data A numeric vector.
-#' @param decimals A positive integer. The number of digits of precision to
-#'   calculate the results to. Increasing this makes the algorithm take longer.
-#' @param t1min A quantile. Start of the search range for T1.
-#' @param t1max A quantile. End of the search range for T1.
-#' @param t2min A quantile. Start of the search range for T2.
-#' @param t2max A quantile. End of the search range for T1.
-#' @param sd_guess A quantile. The quantile used for the initial guess of the
-#'   standard deviation.
-#' @param tol The absolute convergence tolerance for the optimizer. The
-#'   algorithm stops if it is unable to reduce the cost by more than this
-#'   amount.
-#' @param threads A positive integer >= 1. The number of threads to use. Default
-#'   value is 1. Setting this to a higher number may speed up computation, but
-#'   not always. If a value higher than 1 is used the results may not be
-#'   reproduceable from run-to-run.
-#'
 #' @return
 #' A `kosmic` object.
 kosmic_bridge <- function(data,
                           decimals,
-                          t1min = 0.05,
-                          t1max = 0.30,
-                          t2min = 0.70,
-                          t2max = 0.95,
-                          sd_guess = 0.80,
-                          abstol = 1e-7,
-                          threads=1L) {
+                          t1min,
+                          t1max,
+                          t2min,
+                          t2max,
+                          sd_guess,
+                          abstol,
+                          threads) {
   if(!is.numeric(data)) {
     abort("`data` must be a numeric vector.")
   }
