@@ -4,13 +4,27 @@
 \alias{new_kosmic}
 \title{Create a new kosmic result}
 \usage{
-new_kosmic(n, l, mean, sd, T1, T2, decimals, T1min, T1max, T2min, T2max)
+new_kosmic(
+  n,
+  lambda,
+  mean,
+  sd,
+  t1,
+  t2,
+  decimals,
+  t1min,
+  t1max,
+  t2min,
+  t2max,
+  sd_guess,
+  abstol
+)
 }
 \arguments{
 \item{n}{A positive number. The number of results used to estimate the
 distribution.}
 
-\item{l}{A number. The lambda parameter of the Box-Cox transformation for the
+\item{lambda}{A number. The lambda parameter of the Box-Cox transformation for the
 estimated distribution. It which describes the skewness.}
 
 \item{mean}{A number. The mean parameter shows the central point of the
@@ -19,20 +33,24 @@ estimated distribution before it undergoes Box-Cox transformation.}
 \item{sd}{A number. The spread of the estimated distribution before it
 undergoes Box-Cox transformation.}
 
-\item{T1}{A number.}
+\item{t1}{A number.}
 
-\item{T2}{A number.}
+\item{t2}{A number.}
 
 \item{decimals}{A number. The number of digits of precision the kosmic
 algorithm was configured for.}
 
-\item{T1min}{A number.}
+\item{t1min}{A number.}
 
-\item{T1max}{A number.}
+\item{t1max}{A number.}
 
-\item{T2min}{A number.}
+\item{t2min}{A number.}
 
-\item{T2max}{A number.}
+\item{t2max}{A number.}
+
+\item{sd_guess}{A number.}
+
+\item{abstol}{A number.}
 }
 \value{
 A list with the class `kosmic`, containing the runtime parameters and results

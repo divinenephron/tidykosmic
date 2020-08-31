@@ -8,72 +8,147 @@
 #'
 #' @param n A positive number. The number of results used to estimate the
 #'   distribution.
-#' @param l A number. The lambda parameter of the Box-Cox transformation for the
+#' @param lambda A number. The lambda parameter of the Box-Cox transformation for the
 #'   estimated distribution. It which describes the skewness.
 #' @param mean A number. The mean parameter shows the central point of the
 #'   estimated distribution before it undergoes Box-Cox transformation.
 #' @param sd A number. The spread of the estimated distribution before it
 #'   undergoes Box-Cox transformation.
-#' @param T1 A number.
-#' @param T2 A number.
+#' @param t1 A number.
+#' @param t2 A number.
 #' @param decimals A number. The number of digits of precision the kosmic
 #'   algorithm was configured for.
-#' @param T1min A number.
-#' @param T1max A number.
-#' @param T2min A number.
-#' @param T2max A number.
+#' @param t1min A number.
+#' @param t1max A number.
+#' @param t2min A number.
+#' @param t2max A number.
+#' @param sd_guess A number.
+#' @param abstol A number.
 #'
 #' @return
 #'
 #' A list with the class `kosmic`, containing the runtime parameters and results
 #' of the kosmic algorithm.
 new_kosmic <- function(n,
-                       l,
+                       lambda,
                        mean,
                        sd,
-                       T1,
-                       T2,
+                       t1,
+                       t2,
                        decimals,
-                       T1min,
-                       T1max,
-                       T2min,
-                       T2max) {
+                       t1min,
+                       t1max,
+                       t2min,
+                       t2max,
+                       sd_guess,
+                       abstol) {
   if(!is_bare_numeric(n, n=1) | n <= 0) {
     abort("`n` must be a single positive integer.")
   }
   if(!is_bare_numeric(decimals, n=1) | decimals <= 0) {
     abort("`decimals` must be a single positive integer.")
   }
-  for (arg in exprs(mean, sd, T1, T2, decimals,
-                    T1min, T1max, T2min, T2max)) {
+  for (arg in exprs(mean, sd, t1, t2, decimals,
+                    t1min, t1max, t2min, t2max,
+                    sd_guess, abstol)) {
     if(!is_bare_numeric(eval(arg), n=1)) {
       abort(glue("`{arg}` must be a single numeric value."))
     }
   }
   
-  elems <- as.list(match.call())
-  
+  estimates <- c(lambda = lambda,
+                mean = mean,
+                sd = sd,
+                t1 = t1,
+                t2 = t2)
+  settings <- c(decimals = decimals,
+                t1min = t1min,
+                t1max = t1max,
+                t2min = t2min,
+                t2max = t2max,
+                sd_guess = sd_guess,
+                abstol = abstol)
+  elems <- list(n = n,
+                estimates = estimates,
+                settings = settings)
   structure(elems, class = c("kosmic"))
 }
 
-kosmic_bridge <- function(input_vector,
+#' Run Kosmic and Create an Object to Hold the Results
+#'
+#' @param data A numeric vector.
+#' @param decimals A positive integer. The number of digits of precision to
+#'   calculate the results to. Increasing this makes the algorithm take longer.
+#' @param t1min A quantile. Start of the search range for T1.
+#' @param t1max A quantile. End of the search range for T1.
+#' @param t2min A quantile. Start of the search range for T2.
+#' @param t2max A quantile. End of the search range for T1.
+#' @param sd_guess A quantile. The quantile used for the initial guess of the
+#'   standard deviation.
+#' @param tol The absolute convergence tolerance for the optimizer. The
+#'   algorithm stops if it is unable to reduce the cost by more than this
+#'   amount.
+#' @param threads A positive integer >= 1. The number of threads to use. Default
+#'   value is 1. Setting this to a higher number may speed up computation, but
+#'   not always. If a value higher than 1 is used the results may not be
+#'   reproduceable from run-to-run.
+#'
+#' @return
+#' A `kosmic` object.
+kosmic_bridge <- function(data,
                           decimals,
-                          bootstrap,
-                          threads,
-                          t1min,
-                          t1max,
-                          t2min,
-                          t2max,
-                          sd,
-                          tol) {
+                          t1min = 0.05,
+                          t1max = 0.30,
+                          t2min = 0.70,
+                          t2max = 0.95,
+                          sd_guess = 0.80,
+                          abstol = 1e-7,
+                          threads=1L) {
+  if(!is.numeric(data)) {
+    abort("`data` must be a numeric vector.")
+  }
+  if(!is_bare_numeric(decimals, n = 1) | decimals < 0) {
+    abort("`decimals` must be a single number >= 0.")
+  }
+  if(!is_bare_numeric(abstol, n = 1) | abstol <= 0) {
+    abort("`abstol` must be a single number > 0.")
+  }
+  if(!is_bare_numeric(threads, n = 1) | threads < 1) {
+    abort("`threads` must be a single integer >= 1.")
+  }
+  # Check quantile are quantiles
+  for (arg in exprs(t1min, t1max, t2min, t2max, sd_guess)) {
+    if(!is_bare_numeric(eval(arg), n=1)) {
+      abort(glue("`{arg}` must be a single number."))
+    }
+    if(eval(arg) > 1 | eval(arg) < 0) {
+      abort(glue("`{arg}` must be between 0 and 1 (inclusive)."))
+    }
+  }
+
+  bootstrap <- 0
   bootstrap_seed <- get_kosmic_seed()
-  impl_result <- kosmic_impl(input_vector,
-                             decimals,
-                             bootstrap,
+  
+  impl_result <- kosmic_impl(data,
+                             trunc(decimals),
+                             trunc(bootstrap),
                              bootstrap_seed,
-                             threads,
+                             trunc(threads),
                              t1min, t1max,
                              t2min, t2max,
-                             sd, tol)
-  impl_result
+                             sd_guess, abstol)
+  res <- impl_result$result
+  new_kosmic(n = length(data),
+             lambda = res[1],
+             mean = res[2],
+             sd = res[3],
+             t1 = res[5],
+             t2 = res[6],
+             decimals = decimals,
+             t1min = t1min,
+             t1max = t1max,
+             t2min = t2min,
+             t2max = t2max,
+             sd_guess = sd_guess,
+             abstol = abstol)
 }
