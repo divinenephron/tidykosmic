@@ -152,3 +152,21 @@ kosmic_bridge <- function(data,
              sd_guess = sd_guess,
              abstol = abstol)
 }
+
+#' @export
+print.kosmic <- function(x, ...) {
+  if (!inherits(x, "kosmic")) {
+    abort("Use only with `kosmic` objects")
+  }
+  
+  cat("Distribution of physiological results estimated using kosmic \n\n")
+  cat(glue("Number of data points: {x$n}"), "\n\n")
+  cat("Parameters:\n")
+  print(data.frame("estimate" = x$estimates), ...)
+  cat("\n")
+  cat("Settings:\n")
+  print(data.frame("setting" = x$settings), ...)
+  cat("\n")
+  
+  invisible(x)
+}
