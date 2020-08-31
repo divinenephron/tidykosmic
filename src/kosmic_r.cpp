@@ -57,3 +57,19 @@ List kosmic_impl(NumericVector input_vector, int decimals, int bootstrap, int bo
     Named("result", r_result),
     Named("boot", r_boot));
 }
+
+// [[Rcpp::export]]
+NumericVector quantile_kosmic_impl(List param_list, NumericVector probs) {
+  kosmic::best_box_cox_normal<double> params = {
+    param_list["lambda"],
+    param_list["mean"],
+    param_list["sd"]
+  };
+  NumericVector res = clone(probs);
+  
+  for(int i = 0; i<res.size(); i++) {
+    res[i] = kosmic::quantile<double>(probs[i], params);
+  }
+  
+  return(res);
+}

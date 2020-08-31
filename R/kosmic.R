@@ -170,3 +170,51 @@ print.kosmic <- function(x, ...) {
   
   invisible(x)
 }
+
+
+#' Calculate Quantile for an Estimated Distribution of Physiological Results
+#'
+#' @param x A kosmic result.
+#' @param probs Numeric vector. Probabilities with a value between 0 and 1
+#'   (exclusive).
+#' @param names Logical. If true, the result has a names attribute. Set to false
+#'   to speed up the calculation of many probabilities.
+#' @param ...
+#'
+#' @return
+#' A vector of 
+#' 
+#' @export
+quantile.kosmic <- function(x,
+                            probs = c(0.025, 0.500, 0.975),
+                            names = TRUE,
+                            ...) {
+  if (!inherits(x, "kosmic")) {
+    abort("Use only with `kosmic` objects")
+  }
+  if(!is.numeric(probs) | any(probs >= 1) | any(probs <= 0)) {
+    abort(glue("`probs` must all be numbers between 0 and 1 (exclusive)."))
+  }
+  
+  res <- quantile_kosmic_impl(as.list(x$estimates), probs)
+  
+  if (names && length(probs) > 0L) {
+    names(res) <- format_perc(probs)
+  }
+  
+  res
+}
+
+# Change probabilities like 0.1 into percentage strings like "10%"
+format_perc <- function (x,
+                         digits = max(2L,getOption("digits")),
+                         probability = TRUE, 
+                         ...) {
+  if (length(x)) {
+    x <- 100 * x
+    paste0(format(x, trim = TRUE, digits = digits, ...), "%")
+  }
+  else character(0)
+}
+
+

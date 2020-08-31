@@ -4,5 +4,6 @@
 #' @useDynLib kosmic
 #' @importFrom Rcpp sourceCpp
 #' @importFrom glue glue
+#' @importFrom stats quantile
 #' @import rlang
 "_PACKAGE"
