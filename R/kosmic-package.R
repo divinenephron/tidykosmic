@@ -6,4 +6,5 @@
 #' @importFrom glue glue
 #' @importFrom stats quantile
 #' @import rlang
+#' @import dplyr
 "_PACKAGE"

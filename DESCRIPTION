@@ -10,7 +10,8 @@ Description: One paragraph description of what the package does as one
 License: GPL-3
 Imports: 
     Rcpp,
-    rlang
+    rlang,
+    dplyr
 LinkingTo: Rcpp
 LazyData: true
 RoxygenNote: 7.1.1

@@ -5,6 +5,7 @@
 \title{Create a new kosmic result}
 \usage{
 new_kosmic(
+  data,
   n,
   lambda,
   mean,
@@ -53,8 +54,10 @@ algorithm was configured for.}
 \item{abstol}{A number.}
 }
 \value{
-A list with the class `kosmic`, containing a named vector of result, a named
-vector of kosmic settings, and the number of data points.
+A list with the class `kosmic`, containing a named vector of parameters for
+the estimated ditribution, a named vector of truncation limits, a named
+vector of kosmic settings, the number of original data points, and a
+frequency table of the original data.
 }
 \description{
 This creates an S3 object to hold the results of the kosmic library being run

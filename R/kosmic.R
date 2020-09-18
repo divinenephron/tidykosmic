@@ -47,7 +47,10 @@ kosmic.default <- function(data, ...) {
 #'   \code{n} The number of data points used to estimate the distribution.
 #'
 #'   \code{estimates} A named vector of estimates for the ditribution:
-#'   \code{lambda}, \code{mean}, \code{sd}, \code{t1} and \code{t2}.
+#'   \code{lambda}, \code{mean}, \code{sd}.
+#'
+#'   \code{truncation} A named vector of estimate for truncating the original
+#'   data: \code{t1} and \code{t2}.
 #'
 #'   \code{settings} A named vector of the settings passed to \code{kosmic}.
 #'
@@ -107,9 +110,12 @@ kosmic.numeric <- function(data,
 #'
 #' @return
 #'
-#' A list with the class `kosmic`, containing a named vector of result, a named
-#' vector of kosmic settings, and the number of data points.
-new_kosmic <- function(n,
+#' A list with the class `kosmic`, containing a named vector of parameters for
+#' the estimated ditribution, a named vector of truncation limits, a named
+#' vector of kosmic settings, the number of original data points, and a
+#' frequency table of the original data.
+new_kosmic <- function(data,
+                       n,
                        lambda,
                        mean,
                        sd,
@@ -122,6 +128,9 @@ new_kosmic <- function(n,
                        t2max,
                        sd_guess,
                        abstol) {
+  if(!is.data.frame(data)) {
+    abort("`data` must be a data frame.")
+  }
   if(!is_bare_numeric(n, n=1) | n <= 0) {
     abort("`n` must be a single positive integer.")
   }
@@ -138,9 +147,9 @@ new_kosmic <- function(n,
   
   estimates <- c(lambda = lambda,
                 mean = mean,
-                sd = sd,
-                t1 = t1,
-                t2 = t2)
+                sd = sd)
+  truncation <- c(t1 = t1,
+                  t2 = t2)
   settings <- c(decimals = decimals,
                 t1min = t1min,
                 t1max = t1max,
@@ -148,8 +157,10 @@ new_kosmic <- function(n,
                 t2max = t2max,
                 sd_guess = sd_guess,
                 abstol = abstol)
-  elems <- list(n = n,
+  elems <- list(data = data,
+                n = n,
                 estimates = estimates,
+                truncation = truncation,
                 settings = settings)
   structure(elems, class = c("kosmic"))
 }
@@ -189,9 +200,9 @@ kosmic_bridge <- function(data,
     }
   }
 
+  # Run the Kosmic algorithm, written in C++
   bootstrap <- 0
   bootstrap_seed <- get_kosmic_seed()
-  
   impl_result <- kosmic_impl(data,
                              trunc(decimals),
                              trunc(bootstrap),
@@ -201,7 +212,16 @@ kosmic_bridge <- function(data,
                              t2min, t2max,
                              sd_guess, abstol)
   res <- impl_result$result
-  new_kosmic(n = length(data),
+  
+  # Include a frequency table of the original data to allow plotting
+  # later on
+  freqs <- data.frame(result = round(data, trunc(decimals))) %>%
+    mutate(result = round(result, trunc(decimals))) %>%
+    count(result)
+  
+  # Create a kosmic object to hold the results
+  new_kosmic(freqs,
+             n = length(data),
              lambda = res[1],
              mean = res[2],
              sd = res[3],
@@ -224,8 +244,11 @@ print.kosmic <- function(x, ...) {
   
   cat("Distribution of physiological results estimated using kosmic \n\n")
   cat(glue("Number of data points: {x$n}"), "\n\n")
-  cat("Parameters:\n")
+  cat("Distribution estimates:\n")
   print(data.frame("estimate" = x$estimates), ...)
+  cat("\n")
+  cat("Truncation estimates:\n")
+  print(data.frame("estimate" = x$truncation), ...)
   cat("\n")
   cat("Settings:\n")
   print(data.frame("setting" = x$settings), ...)
