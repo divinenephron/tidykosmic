@@ -58,10 +58,7 @@ amount.}
   \code{n} The number of data points used to estimate the distribution.
 
   \code{estimates} A named vector of estimates for the ditribution:
-  \code{lambda}, \code{mean}, \code{sd}.
-
-  \code{truncation} A named vector of estimate for truncating the original
-  data: \code{t1} and \code{t2}.
+  \code{lambda}, \code{mean}, \code{sd}, \code{t1} and \code{t2}
 
   \code{settings} A named vector of the settings passed to \code{kosmic}.
 }

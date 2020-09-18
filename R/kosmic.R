@@ -47,10 +47,7 @@ kosmic.default <- function(data, ...) {
 #'   \code{n} The number of data points used to estimate the distribution.
 #'
 #'   \code{estimates} A named vector of estimates for the ditribution:
-#'   \code{lambda}, \code{mean}, \code{sd}.
-#'
-#'   \code{truncation} A named vector of estimate for truncating the original
-#'   data: \code{t1} and \code{t2}.
+#'   \code{lambda}, \code{mean}, \code{sd}, \code{t1} and \code{t2}
 #'
 #'   \code{settings} A named vector of the settings passed to \code{kosmic}.
 #'
@@ -147,9 +144,9 @@ new_kosmic <- function(data,
   
   estimates <- c(lambda = lambda,
                 mean = mean,
-                sd = sd)
-  truncation <- c(t1 = t1,
-                  t2 = t2)
+                sd = sd,
+                t1 = t1,
+                t2 = t2)
   settings <- c(decimals = decimals,
                 t1min = t1min,
                 t1max = t1max,
@@ -160,7 +157,6 @@ new_kosmic <- function(data,
   elems <- list(data = data,
                 n = n,
                 estimates = estimates,
-                truncation = truncation,
                 settings = settings)
   structure(elems, class = c("kosmic"))
 }
@@ -246,9 +242,6 @@ print.kosmic <- function(x, ...) {
   cat(glue("Number of data points: {x$n}"), "\n\n")
   cat("Distribution estimates:\n")
   print(data.frame("estimate" = x$estimates), ...)
-  cat("\n")
-  cat("Truncation estimates:\n")
-  print(data.frame("estimate" = x$truncation), ...)
   cat("\n")
   cat("Settings:\n")
   print(data.frame("setting" = x$settings), ...)
