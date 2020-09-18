@@ -6,11 +6,11 @@
 \alias{rboxcox}
 \title{Box-Cox Transformed Normal Distribution}
 \usage{
-pboxcox(q, mean, sd, lambda, lower.tail = TRUE)
+pboxcox(q, mean = 0, sd = 1, lambda = 1, lower.tail = TRUE)
 
-qboxcox(p, mean, sd, lambda, lower.tail = TRUE)
+qboxcox(p, mean = 0, sd = 1, lambda = 1, lower.tail = TRUE)
 
-rboxcox(n, mean, sd, lambda)
+rboxcox(n, mean = 0, sd = 1, lambda = 1)
 }
 \description{
 Box-Cox Transformed Normal Distribution

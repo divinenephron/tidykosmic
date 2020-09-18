@@ -33,18 +33,18 @@ boxcox_inverse <- function(ty, lambda, tolerance = 1e-6) {
 #' 
 #' @rdname boxcox-distribution
 #' @export
-pboxcox <- function(q, mean, sd, lambda, lower.tail = TRUE) {
+pboxcox <- function(q, mean = 0, sd = 1, lambda = 1, lower.tail = TRUE) {
   pnorm(boxcox(q, lambda), mean, sd, lower.tail)
 }
 
 #' @rdname boxcox-distribution
 #' @export
-qboxcox <- function(p, mean, sd, lambda, lower.tail = TRUE) {
+qboxcox <- function(p, mean = 0, sd = 1, lambda = 1, lower.tail = TRUE) {
   boxcox_inverse(qnorm(p, mean, sd, lower.tail), lambda)
 }
 
 #' @rdname boxcox-distribution
 #' @export
-rboxcox <- function(n, mean, sd, lambda) {
-  boxcox_inverse(rnorm(n, mean, sd),)
+rboxcox <- function(n, mean = 0, sd = 1, lambda = 1) {
+  boxcox_inverse(rnorm(n, mean, sd), lambda)
 }
