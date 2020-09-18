@@ -3,7 +3,6 @@
 
 #' Call Kosmic algorithm
 #' 
-#' @export
 kosmic_impl <- function(input_vector, decimals, bootstrap, bootstrap_seed, threads, t1min, t1max, t2min, t2max, sd, tol) {
     .Call('_kosmic_kosmic_impl', PACKAGE = 'kosmic', input_vector, decimals, bootstrap, bootstrap_seed, threads, t1min, t1max, t2min, t2max, sd, tol)
 }

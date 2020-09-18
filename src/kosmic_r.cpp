@@ -6,7 +6,6 @@ using namespace Rcpp;
 
 //' Call Kosmic algorithm
 //' 
-//' @export
 // [[Rcpp::export]]
 List kosmic_impl(NumericVector input_vector, int decimals, int bootstrap, int bootstrap_seed, int threads,
                               double t1min, double t1max, double t2min, double t2max, double sd, double tol){
