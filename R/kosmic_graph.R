@@ -78,14 +78,22 @@ kosmic_plot_data <- function(k) {
 
 #' Plot a Distribution Estimated by Kosmic
 #' 
-#' @param object 
+#' @param x 
 #'
 #' @param type 
 #'
 #' @rdname plot.kosmic
+#' @importFrom graphics plot
+#' @export
+plot.kosmic <- function(x, type = c("frequency", "cumulative"), ...) {
+  print(autoplot(x, type, ...))
+  invisible(x)
+}
+
+#' @rdname plot.kosmic
 #' @importFrom ggplot2 ggplot geom_bar geom_line aes .data
 #' @export
-autoplot.kosmic <- function(object, type = c("frequency", "cumulative")) {
+autoplot.kosmic <- function(object, type = c("frequency", "cumulative"), ...) {
   type <- arg_match(type)
   if (!inherits(object, "kosmic")) {
     abort("Use only with `kosmic` objects")
