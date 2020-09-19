@@ -69,10 +69,13 @@ kosmic.numeric <- function(data,
                            threads=1L,
                            na.rm = FALSE,
                            ...) {
+  if (missing(decimals)) {
+    abort("Argument `decimals is required")
+  }
   if (na.rm) 
     data <- data[!is.na(data)]
   else if (anyNA(data)) 
-    stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
+    abort("missing values and NaN's not allowed if 'na.rm' is FALSE")
   
   kosmic_bridge(data, decimals, t1min, t1max, t2min, t2max,
                 sd_guess, abstol, threads)

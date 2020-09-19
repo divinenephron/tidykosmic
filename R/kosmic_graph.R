@@ -76,18 +76,38 @@ kosmic_plot_data <- function(k) {
   list(data = data)
 }
 
-# library(ggplot2)
-# k <- kosmic(hemoglobin$result, 1)
-# d <- kosmic_plot_data(k)
-# ggplot(d$data) +
-#   geom_bar(aes(x = result, y = observed.freq),
-#            stat = "identity",
-#            width = 0.1) +
-#   geom_line(aes(x = result, y = estimated.freq),
-#             color = "red")
-# ggplot(d$data) +
-#   geom_bar(aes(x = result, y = observed.cum),
-#            stat = "identity",
-#            width = 0.1) +
-#   geom_line(aes(x = result, y = estimated.cum),
-#             color = "red")
+#' Plot a Distribution Estimated by Kosmic
+#' 
+#' @param object 
+#'
+#' @param type 
+#'
+#' @rdname plot.kosmic
+#' @importFrom ggplot2 ggplot geom_bar geom_line aes .data
+#' @export
+autoplot.kosmic <- function(object, type = c("frequency", "cumulative")) {
+  type <- arg_match(type)
+  if (!inherits(object, "kosmic")) {
+    abort("Use only with `kosmic` objects")
+  }
+  
+  plot_data <- kosmic_plot_data(object)
+  binwidth <- 10^-object$settings[["decimals"]]
+  
+  g <- ggplot2::ggplot(plot_data$data)
+  if (type == "frequency") {
+    g +
+      ggplot2::geom_bar(aes(x = .data$result, y = .data$observed.freq),
+                        stat = "identity",
+                        width = binwidth) +
+      ggplot2::geom_line(aes(x = .data$result, y = .data$estimated.freq),
+                         color = "red")
+  } else if (type == "cumulative") {
+    g + 
+      ggplot2::geom_bar(aes(x = .data$result, y = .data$observed.cum),
+                        stat = "identity",
+                        width = binwidth) +
+      ggplot2::geom_line(aes(x = .data$result, y = .data$estimated.cum),
+                         color = "red")
+  }
+}

@@ -11,7 +11,8 @@ License: GPL-3
 Imports: 
     Rcpp,
     rlang,
-    dplyr
+    dplyr,
+    ggplot2
 LinkingTo: Rcpp
 LazyData: true
 RoxygenNote: 7.1.1
