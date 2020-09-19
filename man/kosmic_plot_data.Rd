@@ -2,7 +2,7 @@
 % Please edit documentation in R/kosmic_graph.R
 \name{kosmic_plot_data}
 \alias{kosmic_plot_data}
-\title{Data to Easily Plot a Distributed Estimated by Kosmic}
+\title{Data to Easily Plot a Distribution Estimated by Kosmic}
 \usage{
 kosmic_plot_data(k)
 }
@@ -13,5 +13,5 @@ kosmic_plot_data(k)
 
 }
 \description{
-Data to Easily Plot a Distributed Estimated by Kosmic
+Data to Easily Plot a Distribution Estimated by Kosmic
 }

@@ -6,16 +6,16 @@
 #' @export
 kosmic_plot_data <- function(k) {
   observed <- k$data
-  m <- k$estimates["mean"]
-  s <- k$estimates["sd"]
-  l <- k$estimates["lambda"]
-  t1 <- k$estimates["t1"]
-  t2 <- k$estimates["t2"]
-  decimals <- k$settings["decimals"]
+  m <- k$estimates[["mean"]]
+  s <- k$estimates[["sd"]]
+  l <- k$estimates[["lambda"]]
+  t1 <- k$estimates[["t1"]]
+  t2 <- k$estimates[["t2"]]
+  decimals <- k$settings[["decimals"]]
   binwidth <- 10^-decimals
   
   # Generate the range of `result` values
-  # They need to be rounded to avoid floatin poigt errors
+  # They need to be rounded to avoid floating point errors
   lower_limit <- min(observed$result)
   upper_limit <- max(observed$result)
   data <- tibble(
@@ -25,48 +25,59 @@ kosmic_plot_data <- function(k) {
                    decimals)
   )
   
-  # Add observed frequencies for each `result` value
+  # Add observed frequency and cumulative frequency
   data <- data %>%
     left_join(observed, by = "result") %>%
     rename(observed.freq = n) %>%
     mutate(
-      observed.freq = if_else(is.na(observed.freq), 0L, observed.freq)
+      observed.freq = if_else(is.na(observed.freq), 0L, observed.freq),
+      observed.cum = cumsum(observed.freq)
     )
   
-  # Add estimated frequencies for each `result` value.
+  # Add density (d) and cumulative distribution (p) of the estimated
+  # distribution.
+  # The Box-Cox transform means the area under the density function is not
+  # one, so we bodge it by calculating the area then dividing through by it.
+  f <- function(x) { dnorm(boxcox(x, l), m, s)}
+  d_area <- integrate(f, 0, Inf)$value
+  data <- data %>%
+    mutate(
+      estimated.d = dnorm(boxcox(result, l), m, s) / d_area,
+      estimated.p = pnorm(boxcox(result, l), m, s)
+    )
+  
+  # Add estimated frequencies
   # The estimated frequency is fitted to the truncated region between t1 and t2,
   # so scale the area under the estimated frequencies so that they are equal to
   # the area under the observed frequencies.
-  data <- data %>%
-      mutate(
-        result.transformed = boxcox(result, l),
-        estimated.dens = dnorm(result.transformed, m, s)
-      )
-  truncated_area_observed <- sum(data[data$result >= t1 & data$result <= t2, "observed.freq"])
-  truncated_area_estimated <- sum(data[data$result >= t1 & data$result <= t2, "estimated.dens"])
+  trunc_area_observed <- sum(data[data$result >= t1 & data$result <= t2, "observed.freq"]) * binwidth
+  trunc_area_estimated <- sum(data[data$result >= t1 & data$result <= t2, "estimated.d"]) * binwidth
+  scale_freq <- trunc_area_observed / trunc_area_estimated
   data <- data %>%
     mutate(
-      estimated.freq = estimated.dens * truncated_area_observed / truncated_area_estimated
-    ) %>%
-    select(-result.transformed, -estimated.dens)
+      estimated.freq = estimated.d * scale_freq
+    )
   
-  # Add cumulative frequencies for the estimate and observed frequencies.
-  # The cumulative frequencies are fitted to the truncated area betwen t1 and t2,
-  # so raise them up on the graph so they align at t1.
+  # Add cumulative frequencies for the estimate.
+  # The estimate is fitted to the truncated region betwen t1 and t2, so the height
+  # of this part of the curve should be equal to the number of observed results
+  # in the truncated region. The observed data also contains extra abnormal results
+  # below the estimate, so raise the estimate up so that its cumulative frequency
+  # is equal to the observed at t1.
+  trunc_count_observed <- sum(data[data$result >= t1 & data$result <= t2, "observed.freq"])
+  scale_cum <- trunc_count_observed / trunc_area_estimated
   below_t1_observed <- sum(data[data$result < t1, "observed.freq"])
   below_t1_estimated <- sum(data[data$result < t1, "estimated.freq"])
   data <- data %>%
     mutate(
-      observed.cum = cumsum(observed.freq),
-      estimated.cum = cumsum(estimated.freq) + below_t1_observed - below_t1_estimated
+      estimated.cum =
+        estimated.p * scale_cum + below_t1_observed - below_t1_estimated
     )
-  
   list(data = data)
 }
 
 # library(ggplot2)
-# observed <- hemoglobin
-# k <- kosmic(observed$result, 1)
+# k <- kosmic(hemoglobin$result, 1)
 # d <- kosmic_plot_data(k)
 # ggplot(d$data) +
 #   geom_bar(aes(x = result, y = observed.freq),
