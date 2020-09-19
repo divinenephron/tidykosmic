@@ -18,7 +18,7 @@ kosmic_plot_data <- function(k) {
   # They need to be rounded to avoid floating point errors
   lower_limit <- min(observed$result)
   upper_limit <- max(observed$result)
-  data <- tibble(
+  data <- data.frame(
     result = round(seq(from = min(observed$result),
                        to = max(observed$result),
                        by = binwidth),
