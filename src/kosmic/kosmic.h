@@ -1,4 +1,4 @@
-﻿/*
+/*
  Reference Interval Estimation from Mixed Distributions using Truncation Points
  and the Kolmogorov-Smirnov Distance (kosmic)
 
@@ -26,6 +26,7 @@
 #include <cmath>
 
 #include "../lib/ctpl_stl.h"
+#include "../hist_sampler_r.h"
 
 #include "kosmic_structs.h"
 #include "kosmic_math.h"
@@ -206,7 +207,7 @@ namespace kosmic {
 						});
 
 					// RI bootstrapping:
-					hist_sampler<T> hist_sampler(hist);
+					hist_sampler_r<T> hist_sampler(hist);
 					int* temp_counts = new int[threads * hist.classes()];
 					T* temp_cdf_emps = new T[threads * hist.classes()];
 					T* temp_xs = new T[threads * hist.classes()];
@@ -249,7 +250,7 @@ namespace kosmic {
 					if(bootstrap > 0) {
 						int* temp_counts = new int[hist.classes()];
 						T* temp_cdfs = new T[hist.classes()];
-						hist_sampler<T> hist_sampler(hist);
+						hist_sampler_r<T> hist_sampler(hist);
 						for(int i = 0; i < bootstrap; i++) {
 							hist_sampler.cdf(i, temp_counts, temp_cdfs);
 							// Create random samples, might fail (bad sample due to random effects -> try again):
