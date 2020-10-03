@@ -1,14 +1,3 @@
-#' @rdname kosmic
-#' @export
-kosmic <- function(data, ...) {
-  UseMethod("kosmic")
-}
-
-#' @export
-kosmic.default <- function(data, ...) {
-  abort(glue("No `kosmic` method is defined for the class `{class(data)[1]}'."))
-}
-
 #' Estimate a Distribution of Physiological Results Using Kosmic
 #'
 #' @description Estimates the distribution of physiological results from a mixed
@@ -45,6 +34,9 @@ kosmic.default <- function(data, ...) {
 #'   following components:
 #'
 #'   \code{n} The number of data points used to estimate the distribution.
+#'   
+#'   \code{data} A frequency table of the original data, with columns
+#'   \code{result} and \code{n}.
 #'
 #'   \code{estimates} A named vector of estimates for the ditribution:
 #'   \code{lambda}, \code{mean}, \code{sd}, \code{t1} and \code{t2}
@@ -53,9 +45,21 @@ kosmic.default <- function(data, ...) {
 #'
 #' @examples
 #' set.seed(1)
-#' k <- kosmic(rnorm(10000, 16, 1), 1)
+#' k <- kosmic(haemoglobin$result, 1)
 #' quantile(k)
-#'
+#' 
+#' @rdname kosmic
+#' @export
+kosmic <- function(data, ...) {
+  UseMethod("kosmic")
+}
+
+#' @rdname kosmic
+#' @export
+kosmic.default <- function(data, ...) {
+  abort(glue("No `kosmic` method is defined for the class `{class(data)[1]}'."))
+}
+
 #' @rdname kosmic
 #' @export
 kosmic.numeric <- function(data,
@@ -70,7 +74,7 @@ kosmic.numeric <- function(data,
                            na.rm = FALSE,
                            ...) {
   if (missing(decimals)) {
-    abort("Argument `decimals is required")
+    abort("Argument `decimals` is required")
   }
   if (na.rm) 
     data <- data[!is.na(data)]
@@ -89,6 +93,8 @@ kosmic.numeric <- function(data,
 #' on a set of data. It should be called by user-facing methods such as
 #' `kosmic()`.
 #'
+#' @param data A frequency table of the original data, with columns
+#'   \code{result} and \code{n}.
 #' @param n A positive number. The number of results used to estimate the
 #'   distribution.
 #' @param lambda A number. The lambda parameter of the Box-Cox transformation
@@ -127,7 +133,9 @@ new_kosmic <- function(data,
                        t2min,
                        t2max,
                        sd_guess,
-                       abstol) {
+                       abstol,
+                       ...,
+                       class = character()) {
   if(!is.data.frame(data)) {
     abort("`data` must be a data frame.")
   }
@@ -161,7 +169,8 @@ new_kosmic <- function(data,
                 n = n,
                 estimates = estimates,
                 settings = settings)
-  structure(elems, class = c("kosmic"))
+  structure(c(elems, dots_list(..., .named=TRUE)),
+            class = c(class, "kosmic"))
 }
 
 #' Run Kosmic and Create an Object to Hold the Results
@@ -200,11 +209,10 @@ kosmic_bridge <- function(data,
   }
 
   # Run the Kosmic algorithm, written in C++
-  bootstrap <- 0
   bootstrap_seed <- get_kosmic_seed()
   impl_result <- kosmic_impl(data,
                              trunc(decimals),
-                             trunc(bootstrap),
+                             0L,
                              bootstrap_seed,
                              trunc(threads),
                              t1min, t1max,

@@ -18,10 +18,15 @@ new_kosmic(
   t2min,
   t2max,
   sd_guess,
-  abstol
+  abstol,
+  ...,
+  class = character()
 )
 }
 \arguments{
+\item{data}{A frequency table of the original data, with columns
+\code{result} and \code{n}.}
+
 \item{n}{A positive number. The number of results used to estimate the
 distribution.}
 

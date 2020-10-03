@@ -2,10 +2,13 @@
 % Please edit documentation in R/kosmic.R
 \name{kosmic}
 \alias{kosmic}
+\alias{kosmic.default}
 \alias{kosmic.numeric}
 \title{Estimate a Distribution of Physiological Results Using Kosmic}
 \usage{
 kosmic(data, ...)
+
+\method{kosmic}{default}(data, ...)
 
 \method{kosmic}{numeric}(
   data,
@@ -56,6 +59,9 @@ amount.}
   following components:
 
   \code{n} The number of data points used to estimate the distribution.
+  
+  \code{data} A frequency table of the original data, with columns
+  \code{result} and \code{n}.
 
   \code{estimates} A named vector of estimates for the ditribution:
   \code{lambda}, \code{mean}, \code{sd}, \code{t1} and \code{t2}
@@ -76,7 +82,7 @@ The kosmic algorithm works by minimizes the difference between an
 }
 \examples{
 set.seed(1)
-k <- kosmic(rnorm(10000, 16, 1), 1)
+k <- kosmic(haemoglobin$result, 1)
 quantile(k)
 
 }
