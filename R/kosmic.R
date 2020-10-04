@@ -134,7 +134,6 @@ new_kosmic <- function(data,
                        t2max,
                        sd_guess,
                        abstol,
-                       ...,
                        class = character()) {
   if(!is.data.frame(data)) {
     abort("`data` must be a data frame.")
@@ -169,7 +168,7 @@ new_kosmic <- function(data,
                 n = n,
                 estimates = estimates,
                 settings = settings)
-  structure(c(elems, dots_list(..., .named=TRUE)),
+  structure(elems,
             class = c(class, "kosmic"))
 }
 

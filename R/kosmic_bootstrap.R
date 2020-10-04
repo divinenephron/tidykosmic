@@ -110,7 +110,6 @@ new_kosmic_bootstrap <- function(data, n,
                                  lambda, mean, sd, t1, t2,
                                  decimals, t1min, t1max, t2min, t2max, sd_guess, abstol,
                                  replicates, bootstrap_estimates,
-                                 ...,
                                  class = character()) {
   if(!is_bare_numeric(replicates, n=1) | replicates <= 0) {
     abort("`replicates` must be a single positive integer.")
@@ -121,10 +120,11 @@ new_kosmic_bootstrap <- function(data, n,
   if(ncol(bootstrap_estimates) != 5) {
     abort("`bootstrap_extimates` must have five columns")
   }
-  new_kosmic(data, n,
-             lambda, mean, sd, t1, t2,
-             decimals, t1min, t1max, t2min, t2max, sd_guess, abstol,
-             replicates, bootstrap_estimates,
-             ...,
-             class = c(class, "kosmic_bootstrap"))
+  res <- new_kosmic(data, n,
+                    lambda, mean, sd, t1, t2,
+                    decimals, t1min, t1max, t2min, t2max, sd_guess, abstol,
+                    class = c(class, "kosmic_bootstrap"))
+  res$replicates <- replicates
+  res$bootstrap_estimates <- bootstrap_estimates
+  res
 }

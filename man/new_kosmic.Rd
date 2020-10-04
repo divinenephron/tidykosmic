@@ -19,7 +19,6 @@ new_kosmic(
   t2max,
   sd_guess,
   abstol,
-  ...,
   class = character()
 )
 }
