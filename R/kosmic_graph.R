@@ -47,11 +47,11 @@ kosmic_plot_data <- function(k) {
     )
   
   # Add estimated frequencies
-  # The estimated frequency is fitted to the truncated region between t1 and t2,
+  # The estimated frequency is fitted to the truncated region (>= t1 and < t2),
   # so scale the area under the estimated frequencies so that they are equal to
   # the area under the observed frequencies.
-  trunc_area_observed <- sum(data[data$result >= t1 & data$result <= t2, "observed.freq"]) * binwidth
-  trunc_area_estimated <- sum(data[data$result >= t1 & data$result <= t2, "estimated.d"]) * binwidth
+  trunc_area_observed <- sum(data[data$result >= t1 & data$result < t2, "observed.freq"]) * binwidth
+  trunc_area_estimated <- sum(data[data$result >= t1 & data$result < t2, "estimated.d"]) * binwidth
   scale_freq <- trunc_area_observed / trunc_area_estimated
   data <- data %>%
     mutate(
@@ -59,12 +59,12 @@ kosmic_plot_data <- function(k) {
     )
   
   # Add cumulative frequencies for the estimate.
-  # The estimate is fitted to the truncated region betwen t1 and t2, so the height
+  # The estimate is fitted to the truncated region (>= t1 and < t2), so the height
   # of this part of the curve should be equal to the number of observed results
   # in the truncated region. The observed data also contains extra abnormal results
   # below the estimate, so raise the estimate up so that its cumulative frequency
   # is equal to the observed at t1.
-  trunc_count_observed <- sum(data[data$result >= t1 & data$result <= t2, "observed.freq"])
+  trunc_count_observed <- sum(data[data$result >= t1 & data$result < t2, "observed.freq"])
   scale_cum <- trunc_count_observed / trunc_area_estimated
   below_t1_observed <- sum(data[data$result < t1, "observed.freq"])
   below_t1_estimated <- sum(data[data$result < t1, "estimated.freq"])
