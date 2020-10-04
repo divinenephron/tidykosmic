@@ -24,23 +24,24 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// kosmic_resample
-NumericVector kosmic_resample(NumericVector results, NumericVector counts, int decimals);
-RcppExport SEXP _kosmic_kosmic_resample(SEXP resultsSEXP, SEXP countsSEXP, SEXP decimalsSEXP) {
+// kosmic_resamples_impl
+List kosmic_resamples_impl(NumericVector results, NumericVector counts, int replicates, NumericVector settings);
+RcppExport SEXP _kosmic_kosmic_resamples_impl(SEXP resultsSEXP, SEXP countsSEXP, SEXP replicatesSEXP, SEXP settingsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type results(resultsSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type counts(countsSEXP);
-    Rcpp::traits::input_parameter< int >::type decimals(decimalsSEXP);
-    rcpp_result_gen = Rcpp::wrap(kosmic_resample(results, counts, decimals));
+    Rcpp::traits::input_parameter< int >::type replicates(replicatesSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type settings(settingsSEXP);
+    rcpp_result_gen = Rcpp::wrap(kosmic_resamples_impl(results, counts, replicates, settings));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_kosmic_kosmic_impl", (DL_FUNC) &_kosmic_kosmic_impl, 9},
-    {"_kosmic_kosmic_resample", (DL_FUNC) &_kosmic_kosmic_resample, 3},
+    {"_kosmic_kosmic_resamples_impl", (DL_FUNC) &_kosmic_kosmic_resamples_impl, 4},
     {NULL, NULL, 0}
 };
 

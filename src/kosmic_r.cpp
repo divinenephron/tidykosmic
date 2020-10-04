@@ -1,6 +1,8 @@
 
 #include "kosmic.h"
 #include "hist_sampler_r.h"
+#include "kosmic_math.h"
+#include "kosmic_structs.h"
 
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -63,7 +65,17 @@ List kosmic_impl(NumericVector input_vector, int decimals, int bootstrap,
 //' Resample data using the same code as the Kosmic agorithm
 //' 
 // [[Rcpp::export]]
-NumericVector kosmic_resample(NumericVector results, NumericVector counts, int decimals) {
+List kosmic_resamples_impl(NumericVector results, NumericVector counts,
+                                    int replicates, NumericVector settings) {
+  // Algorithm settings
+  int decimals = settings["decimals"];
+  kosmic::algorithm_settings settings2 = { settings["t1min"],
+                                           settings["t1max"],
+                                           settings["t2min"],
+                                           settings["t2max"],
+                                           settings["sd_guess"],
+                                           settings["abstol"] };
+  
   // Make histogram
   kosmic::hist_builder<double> hist(decimals);
   for (int i = 0; i < results.size(); i++) {
@@ -71,17 +83,37 @@ NumericVector kosmic_resample(NumericVector results, NumericVector counts, int d
       hist.add(results[i]);
     }
   }
-  
+  kosmic::cdf<double> cdf(hist);
+
   // Resample
+  NumericVector freq(replicates * hist.classes());
   int* temp_counts = new int[hist.classes()];
   double* temp_cdfs = new double[hist.classes()];
   kosmic::hist_sampler_r<double> hist_sampler(hist);
-  hist_sampler.cdf(0, temp_counts, temp_cdfs);
-  
-  // Return resampled frequencies
-  NumericVector res(hist.classes());
-  for (int i = 0; i < hist.classes(); i++) {
-    res[i] = temp_counts[i];
+  for (int i = 0; i < replicates; i++) {
+    hist_sampler.cdf(0, temp_counts, temp_cdfs);
+    // Create random samples, might fail (bad sample due to random effects -> try again):
+    for (;;) {
+      kosmic::ri_estimator<double, kosmic::cost_evaluator_ks_classic<double>> ri_estimator_(hist_sampler.classes(), cdf.x, temp_cdfs, settings2);
+      if(!ri_estimator_.is_good()) {
+        continue;
+      } else {
+        for (int j = 0; j < hist.classes(); j++) {
+          freq[i * hist.classes() + j] = temp_counts[j];
+        }
+        break;
+      }
+    }
   }
-  return res;
+  
+  // Record values at each index
+  NumericVector result(hist.classes());
+  for (int i = 0; i < hist.classes(); i++) {
+    result[i] = hist.x(i);
+  }
+  
+  return List::create(
+    Named("frequencies", freq),
+    Named("result", result),
+    Named("classes", hist.classes()));
 }

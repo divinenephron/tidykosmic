@@ -63,6 +63,10 @@ kosmic_bootstrap_bridge <- function(data, decimals, replicates,
     }
   }
   
+  # Get the starting seed
+  if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) runif(1)
+  seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
+  
   # Run the Kosmic algorithm on the original data
   impl_result <- kosmic_impl(data,
                              trunc(decimals),
@@ -96,13 +100,14 @@ kosmic_bootstrap_bridge <- function(data, decimals, replicates,
              sd_guess = sd_guess,
              abstol = abstol,
              replicates = replicates,
-             bootstrap_estimates = bootstrap_estimates)
+             seed = seed,
+             bootstrap_estimates = bootstrap_estimates,)
 }
 
 new_kosmic_bootstrap <- function(data, n,
                                  lambda, mean, sd, t1, t2,
                                  decimals, t1min, t1max, t2min, t2max, sd_guess, abstol,
-                                 replicates, bootstrap_estimates,
+                                 replicates, seed, bootstrap_estimates,
                                  class = character()) {
   if(!is_bare_numeric(replicates, n=1) | replicates <= 0) {
     abort("`replicates` must be a single positive integer.")
@@ -118,6 +123,40 @@ new_kosmic_bootstrap <- function(data, n,
                     decimals, t1min, t1max, t2min, t2max, sd_guess, abstol,
                     class = c(class, "kosmic_bootstrap"))
   res$replicates <- replicates
+  res$seed <- seed
   res$bootstrap_estimates <- bootstrap_estimates
+  res
+}
+
+#' Resamples of a Kosmic Bootstrap
+#'
+#' @description This function takes an object created by \code{kosmic_bootstrap}
+#'   and returns the resampled data it uses.
+#'
+#' @param object
+#'
+#' @return
+#' @export
+kosmic_resamples <- function(object) {
+  # Save the current seed and restore the object's seed
+  if (exists(".Random.seed", envir=.GlobalEnv, inherits = FALSE))
+    temp <- get(".Random.seed", envir=.GlobalEnv, inherits = FALSE)
+  else temp<- NULL
+  assign(".Random.seed",  object$seed, envir=.GlobalEnv)
+  
+  # Perform the resampling
+  resamples <- kosmic_resamples_impl(results = object$data$result,
+                                     counts = object$data$n,
+                                     replicates = object$replicates,
+                                     settings = object$settings)
+  # Rearrange resamples into a data.frame
+  res <- data.frame(id = rep(1:object$replicates, each = resamples$classes),
+                    result = rep(resamples$result,
+                                 times = object$replicates),
+                    n = resamples$frequencies)
+  
+  # Restore the previous seed
+  if (!is.null(temp)) assign(".Random.seed", temp, envir=.GlobalEnv)
+  else rm(.Random.seed, pos=1)
   res
 }
