@@ -3,36 +3,32 @@
 #include "kosmic_input.h"
 
 #include <Rcpp.h>
-#include <cassert>
+#include <algorithm>
 #include <vector>
-#include <random>
 
 namespace kosmic {
 
 /*
- Creates random (Mersenne twister/std::mt19937) samples (sample with replacement) from a given histogram.
+ Creates random samples from a given histogram using Rcpp::sample()
  */
 template<typename T> class hist_sampler_r {
   
   int class_count;
   int entries;
-  double* probabilities;
-  std::discrete_distribution<int>* dist;
+  Rcpp::NumericVector* probabilities;
   
 public:
   
   hist_sampler_r(const hist_builder<T>& hist) {
     class_count = hist.classes();
     entries = hist.n();
-    probabilities = new double[class_count];
+    probabilities = new Rcpp::NumericVector(class_count);
     for (int i = 0; i < class_count; i++)
-      probabilities[i] = (double) hist[i] / entries;
-    dist = new std::discrete_distribution<int>(probabilities, &probabilities[class_count]);
+      (*probabilities)[i] = (double) hist[i] / entries;
   }
   
   ~hist_sampler_r() {
-    delete[] probabilities;
-    delete dist;
+    delete probabilities;
   }
   
   /*
@@ -40,9 +36,16 @@ public:
    */
   void cdf(int seed, int temp_counts[], double cdf[]) {
     std::fill(&temp_counts[0], &temp_counts[class_count], 0);
-    std::mt19937 mt(seed);
+    
+    // Sample
+    Rcpp::IntegerVector s = Rcpp::sample(class_count, entries, true,
+                             (*probabilities), false);
+    
+    // Count frequency in sample
     for (int i = 0; i < entries; i++)
-      temp_counts[(*dist)(mt)]++;
+      temp_counts[s[i]]++;
+    
+    // Generate a CDF
     int total = 0;
     for (int i = 0; i < class_count; i++) {
       total += temp_counts[i];

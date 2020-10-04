@@ -1,5 +1,6 @@
 
 #include "kosmic.h"
+#include "hist_sampler_r.h"
 
 #include <Rcpp.h>
 using namespace Rcpp;
@@ -55,4 +56,30 @@ List kosmic_impl(NumericVector input_vector, int decimals, int bootstrap, int bo
     Named("return_code", return_code),
     Named("result", r_result),
     Named("boot", r_boot));
+}
+
+//' Resample data using the same code as the Kosmic agorithm
+//' 
+// [[Rcpp::export]]
+NumericVector kosmic_resample(NumericVector results, NumericVector counts, int decimals) {
+  // Make histogram
+  kosmic::hist_builder<double> hist(decimals);
+  for (int i = 0; i < results.size(); i++) {
+    for (int j = 0; j < counts[i]; j++) {
+      hist.add(results[i]);
+    }
+  }
+  
+  // Resample
+  int* temp_counts = new int[hist.classes()];
+  double* temp_cdfs = new double[hist.classes()];
+  kosmic::hist_sampler_r<double> hist_sampler(hist);
+  hist_sampler.cdf(0, temp_counts, temp_cdfs);
+  
+  // Return resampled frequencies
+  NumericVector res(hist.classes());
+  for (int i = 0; i < hist.classes(); i++) {
+    res[i] = temp_counts[i];
+  }
+  return res;
 }

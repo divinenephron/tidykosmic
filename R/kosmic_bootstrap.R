@@ -79,15 +79,12 @@ kosmic_bootstrap_bridge <- function(data, decimals, replicates,
                              sd_guess, abstol)
   res <- impl_result$result
   # Leave the cost column out of the bootstrap estimates.
-  # Also transpose it so that each estimates is a columns and each
-  # replicate is a row.
-  bootstrap_estimates <- t(impl_result$boot[,-4])
+  bootstrap_estimates <- impl_result$boot[,-4]
   colnames(bootstrap_estimates) <- c("lambda", "mean", "sd", "t1", "t2")
   
   # Include a frequency table of the original data to allow plotting
   # later on
   freqs <- data.frame(result = round(data, trunc(decimals))) %>%
-    mutate(result = round(result, trunc(decimals))) %>%
     count(result)
   
   # Create a kosmic object to hold the results
@@ -106,14 +103,13 @@ kosmic_bootstrap_bridge <- function(data, decimals, replicates,
              sd_guess = sd_guess,
              abstol = abstol,
              replicates = replicates,
-             bootstrap_estimates = bootstrap_estimates,
-             data_resamples = NULL)
+             bootstrap_estimates = bootstrap_estimates)
 }
 
 new_kosmic_bootstrap <- function(data, n,
                                  lambda, mean, sd, t1, t2,
                                  decimals, t1min, t1max, t2min, t2max, sd_guess, abstol,
-                                 replicates, bootstrap_estimates, data_resamples,
+                                 replicates, bootstrap_estimates,
                                  ...,
                                  class = character()) {
   if(!is_bare_numeric(replicates, n=1) | replicates <= 0) {
@@ -128,7 +124,7 @@ new_kosmic_bootstrap <- function(data, n,
   new_kosmic(data, n,
              lambda, mean, sd, t1, t2,
              decimals, t1min, t1max, t2min, t2max, sd_guess, abstol,
-             replicates, bootstrap_estimates, data_resamples,
+             replicates, bootstrap_estimates,
              ...,
              class = c(class, "kosmic_bootstrap"))
 }

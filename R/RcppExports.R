@@ -7,3 +7,9 @@ kosmic_impl <- function(input_vector, decimals, bootstrap, bootstrap_seed, threa
     .Call('_kosmic_kosmic_impl', PACKAGE = 'kosmic', input_vector, decimals, bootstrap, bootstrap_seed, threads, t1min, t1max, t2min, t2max, sd, tol)
 }
 
+#' Resample data using the same code as the Kosmic agorithm
+#' 
+kosmic_resample <- function(results, counts, decimals) {
+    .Call('_kosmic_kosmic_resample', PACKAGE = 'kosmic', results, counts, decimals)
+}
+
