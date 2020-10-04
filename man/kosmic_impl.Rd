@@ -8,8 +8,6 @@ kosmic_impl(
   input_vector,
   decimals,
   bootstrap,
-  bootstrap_seed,
-  threads,
   t1min,
   t1max,
   t2min,

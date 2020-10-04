@@ -21,7 +21,6 @@ kosmic_bootstrap.numeric <- function(data,
                                    t2max = 0.95,
                                    sd_guess = 0.80,
                                    abstol = 1e-7,
-                                   threads=1L,
                                    na.rm = FALSE,
                                    ...) {
   if (missing(decimals)) {
@@ -36,12 +35,12 @@ kosmic_bootstrap.numeric <- function(data,
     abort("missing values and NaN's not allowed if 'na.rm' is FALSE")
   
   kosmic_bootstrap_bridge(data, decimals, replicates, t1min, t1max, t2min, t2max,
-                sd_guess, abstol, threads)
+                sd_guess, abstol)
 }
 
 kosmic_bootstrap_bridge <- function(data, decimals, replicates,
                                     t1min, t1max, t2min, t2max,
-                                    sd_guess, abstol, threads) {
+                                    sd_guess, abstol) {
   if(!is.numeric(data)) {
     abort("`data` must be a numeric vector.")
   }
@@ -50,9 +49,6 @@ kosmic_bootstrap_bridge <- function(data, decimals, replicates,
   }
   if(!is_bare_numeric(abstol, n = 1) | abstol <= 0) {
     abort("`abstol` must be a single number > 0.")
-  }
-  if(!is_bare_numeric(threads, n = 1) | threads < 1) {
-    abort("`threads` must be a single integer >= 1.")
   }
   if(!is_bare_numeric(replicates, n = 1) | replicates < 1) {
     abort("`replicates` must be a single number >= 1.")
@@ -67,13 +63,10 @@ kosmic_bootstrap_bridge <- function(data, decimals, replicates,
     }
   }
   
-  bootstrap_seed <- get_kosmic_seed()
   # Run the Kosmic algorithm on the original data
   impl_result <- kosmic_impl(data,
                              trunc(decimals),
                              trunc(replicates),
-                             bootstrap_seed,
-                             trunc(threads),
                              t1min, t1max,
                              t2min, t2max,
                              sd_guess, abstol)

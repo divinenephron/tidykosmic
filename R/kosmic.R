@@ -23,10 +23,6 @@
 #' @param tol The absolute convergence tolerance for the optimizer. The
 #'   algorithm stops if it is unable to reduce the cost by more than this
 #'   amount.
-#' @param threads A positive integer >= 1. The number of threads to use. Default
-#'   value is 1. Setting this to a higher number may speed up computation, but
-#'   not always. If a value higher than 1 is used the results may not be
-#'   reproduceable from run-to-run.
 #' @param na.rm Logical. If true, any NA and NaNs are removed from `data` before
 #'   calling kosmic.
 #'
@@ -70,7 +66,6 @@ kosmic.numeric <- function(data,
                            t2max = 0.95,
                            sd_guess = 0.80,
                            abstol = 1e-7,
-                           threads=1L,
                            na.rm = FALSE,
                            ...) {
   if (missing(decimals)) {
@@ -82,7 +77,7 @@ kosmic.numeric <- function(data,
     abort("missing values and NaN's not allowed if 'na.rm' is FALSE")
   
   kosmic_bridge(data, decimals, t1min, t1max, t2min, t2max,
-                sd_guess, abstol, threads)
+                sd_guess, abstol)
 }
 
 #' Create a new kosmic result
@@ -183,8 +178,7 @@ kosmic_bridge <- function(data,
                           t2min,
                           t2max,
                           sd_guess,
-                          abstol,
-                          threads) {
+                          abstol) {
   if(!is.numeric(data)) {
     abort("`data` must be a numeric vector.")
   }
@@ -193,9 +187,6 @@ kosmic_bridge <- function(data,
   }
   if(!is_bare_numeric(abstol, n = 1) | abstol <= 0) {
     abort("`abstol` must be a single number > 0.")
-  }
-  if(!is_bare_numeric(threads, n = 1) | threads < 1) {
-    abort("`threads` must be a single integer >= 1.")
   }
   # Check quantile are quantiles
   for (arg in exprs(t1min, t1max, t2min, t2max, sd_guess)) {
@@ -208,12 +199,9 @@ kosmic_bridge <- function(data,
   }
 
   # Run the Kosmic algorithm, written in C++
-  bootstrap_seed <- get_kosmic_seed()
   impl_result <- kosmic_impl(data,
                              trunc(decimals),
                              0L,
-                             bootstrap_seed,
-                             trunc(threads),
                              t1min, t1max,
                              t2min, t2max,
                              sd_guess, abstol)

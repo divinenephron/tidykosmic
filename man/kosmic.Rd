@@ -19,7 +19,6 @@ kosmic(data, ...)
   t2max = 0.95,
   sd_guess = 0.8,
   abstol = 1e-07,
-  threads = 1L,
   na.rm = FALSE,
   ...
 )
@@ -41,11 +40,6 @@ calculate the results to. Increasing this makes the algorithm take longer.}
 
 \item{sd_guess}{A quantile. The quantile used for the initial guess of the
 standard deviation.}
-
-\item{threads}{A positive integer >= 1. The number of threads to use. Default
-value is 1. Setting this to a higher number may speed up computation, but
-not always. If a value higher than 1 is used the results may not be
-reproduceable from run-to-run.}
 
 \item{na.rm}{Logical. If true, any NA and NaNs are removed from `data` before
 calling kosmic.}
