@@ -7,7 +7,7 @@
 kosmic_bridge(data, decimals, t1min, t1max, t2min, t2max, sd_guess, abstol)
 }
 \value{
-A `kosmic` object.
+A \code{kosmic} object.
 }
 \description{
 Run Kosmic and Create an Object to Hold the Results

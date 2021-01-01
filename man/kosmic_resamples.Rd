@@ -14,5 +14,5 @@ kosmic_resamples(object)
 }
 \description{
 This function takes an object created by \code{kosmic_bootstrap}
-  and returns the resampled data used to generate its results.
+and returns the resampled data it uses.
 }

@@ -41,7 +41,7 @@ calculate the results to. Increasing this makes the algorithm take longer.}
 \item{sd_guess}{A quantile. The quantile used for the initial guess of the
 standard deviation.}
 
-\item{na.rm}{Logical. If true, any NA and NaNs are removed from `data` before
+\item{na.rm}{Logical. If true, any NA and NaNs are removed from \code{data} before
 calling kosmic.}
 
 \item{tol}{The absolute convergence tolerance for the optimizer. The
@@ -49,30 +49,30 @@ algorithm stops if it is unable to reduce the cost by more than this
 amount.}
 }
 \value{
-`kosmic` returns an object of class "kosmic". This contains the
-  following components:
+\code{kosmic} returns an object of class "kosmic". This contains the
+following components:
 
-  \code{n} The number of data points used to estimate the distribution.
-  
-  \code{data} A frequency table of the original data, with columns
-  \code{result} and \code{n}.
+\code{n} The number of data points used to estimate the distribution.
 
-  \code{estimates} A named vector of estimates for the ditribution:
-  \code{lambda}, \code{mean}, \code{sd}, \code{t1} and \code{t2}
+\code{data} A frequency table of the original data, with columns
+\code{result} and \code{n}.
 
-  \code{settings} A named vector of the settings passed to \code{kosmic}.
+\code{estimates} A named vector of estimates for the ditribution:
+\code{lambda}, \code{mean}, \code{sd}, \code{t1} and \code{t2}
+
+\code{settings} A named vector of the settings passed to \code{kosmic}.
 }
 \description{
 Estimates the distribution of physiological results from a mixed
-  distribution of physiological and abnormal results, such as those found in
-  laboratory databases.
+distribution of physiological and abnormal results, such as those found in
+laboratory databases.
 }
 \details{
 The kosmic algorithm works by minimizes the difference between an
-  estimated parametric distribution and a truncated part of the observed
-  distribution, specifically, the Kolmogorov-Smirnov-distance between a
-  hypothetical Gaussian distribution and the observed distribution of test
-  results after Box-Cox-transformation.
+estimated parametric distribution and a truncated part of the observed
+distribution, specifically, the Kolmogorov-Smirnov-distance between a
+hypothetical Gaussian distribution and the observed distribution of test
+results after Box-Cox-transformation.
 }
 \examples{
 set.seed(1)

@@ -20,7 +20,7 @@ tolerance, it is treated as if it were zero.}
 \item{ty}{A numeric vector of transformed values.}
 }
 \value{
-A vector the same length as `y` or `ty`.
+A vector the same length as \code{y} or \code{ty}.
 }
 \description{
 Box-Cox Transform

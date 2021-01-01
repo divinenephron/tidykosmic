@@ -7,9 +7,9 @@
 \title{Simulated Haemoglobin Results}
 \format{
 A data frame with columns \code{result}, \code{age} and \code{sex}.
-  The result column is numeric and the units are g/dL. The age column is
-  numeric and the units are years. The sex column is a character vector,
-  containing "m" and "w" for men and women.
+The result column is numeric and the units are g/dL. The age column is
+numeric and the units are years. The sex column is a character vector,
+containing "m" and "w" for men and women.
 
 An object of class \code{data.frame} with 10000 rows and 3 columns.
 }
@@ -23,7 +23,7 @@ hemoglobin
 }
 \description{
 A simulated hemoglobin result dataset with a true reference
-  interval of 12.0-16.0 g/dL. Note that "haemoglobin" and "hemoglobin" are
-  synonyms.
+interval of 12.0-16.0 g/dL. Note that "haemoglobin" and "hemoglobin" are
+synonyms.
 }
 \keyword{datasets}
