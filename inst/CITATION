@@ -1,0 +1,19 @@
+citHeader("To cite kosmic in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "Reference Interval Estimation from Mixed Distributions using Truncation Points and the Kolmogorov-Smirnov Distance (kosmic)",
+  author   = "Zierk, Jakob and Arzideh, Farhad and Kapsner, Lorenz A. and Prokosch, Hans-Ulrich and Metzler, Markus and Rauh, Manfred",
+  journal  = "{Scientific Reports",
+  year     = "2020",
+  volume   = "10",
+  number   = "1",
+  pages    = "1704",
+  url      = "https://www.nature.com/articles/s41598-020-58749-2",
+  textVersion = paste("Zierk, Jakob, Farhad Arzideh, Lorenz A. Kapsner, Hans-Ulrich Prokosch,",
+                      "Markus Metzler, and Manfred Rauh (2020). Reference Interval Estimation",
+                      "from Mixed Distributions Using Truncation Points and the Kolmogorov-Smirnov",
+                      "Distance (Kosmic). Scientific Reports, 10(1), 1704.",
+                      "URL https://www.nature.com/articles/s41598-020-58749-2."
+  )
+)
