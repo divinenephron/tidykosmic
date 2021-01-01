@@ -31,7 +31,7 @@ devtools::install_github("divinenephron/kosmic-r")
 
 ## Example
 
-Here a reference interval is estimated for the simulated `haemoglobin` dataset which contains randomly generated physiological results and contamination from randomly generated pathological result. The true reference interval for this data is 12.0-16.0 g/dL, and the estimates by Kosmic estimates are close to these.
+Here a reference interval is estimated for the simulated `haemoglobin` dataset which contains randomly generated physiological results and contamination from randomly generated pathological result. The true reference interval for this data is 12.0-16.0 g/dL, and the estimates from Kosmic are close.
 
 ```{r example}
 library(kosmic)
