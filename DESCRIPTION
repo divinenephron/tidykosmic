@@ -7,7 +7,7 @@ Author@R: c(person("Devon", "Buchanan", email="devon.buchanan@nhs.net", role = c
             person("Jakob", "Zierck", email="jakob.zierk@uk-erlangen.de", role = c("aut"),
                    comment = "Author of the Kosmic C++ library"),
             person("Farhad", "Arzideh", email = "farhad.arzideh@uk-koeln.de", role = c("ccp"),
-                   comment = "Created original concept and prior implementations"))
+                   comment = "Creator of original concept and prior implementations"))
 Description: Kosmic estimates the distribution of physiological results from a mixture of physiological
              and pathological results, like those that are found in laboratory databases. It does this
              by appying a Box-Cox transformation, then fitting a gaussian distribution to a truncated
