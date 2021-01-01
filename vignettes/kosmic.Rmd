@@ -1,0 +1,112 @@
+---
+title: "Introduction to Kosmic"
+bibliography: "`r system.file('references.bib', package='kosmic')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to Kosmic}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, echo = FALSE}
+library(kosmic)
+options(max.print = 16)
+```
+
+## The Purpose of Kosmic: Reference Intervals
+
+Most medical laboratory results are interpreted by comparing them to a reference interval, which describe the results you would expect in a healthy population.
+Reference intervals are established by first identifying reference individuals who meet pre-specified criteria for being "healthy", then performing the laboratory investigation of interest on them.
+The results from these individuals are called reference values.
+The reference values are summarised using reference limits, and the interval between two reference limits is the reference interval.
+Reference intervals are usually calculated so that they include the central 95% of reference values.
+
+The above method of establishing reference intervals is the "direct" method.
+It is the gold-standard method recommended by the IFCC and CLSI, but it has two main limitation.
+A lot of resources are needed to recruit the healthy participants perform the investigations, and because of this most direct reference interval studies use a small sample size, which leads to wide confidence intervals around the reference limits.
+
+The limitation of direct methods of establishing reference intervals mean that "indirect" methods that mine routine laboratory data can be preferable.
+These methods require fewer resources because the data needed for them is readily available, and they can make use of large amounts of data, leading to narrow confidence intervals around the reference limits.
+The main limitation of indirect methods is that routine laboratory data will be contaminated with pathological results, which will affect the reference intervals calculated.
+Kosmic is a tool that reduce the effect of this contamination, which was originally created by @zierkReferenceIntervalEstimation2020.
+
+## How does Kosmic work?
+
+Kosmic estimates the distribution of physiological results (reference values) from routine laboratory data that is contaminated with pathological results.
+It relies on the observation that the pathological results usually fall on the edge of the distribution of physiological result, so there is a section in the middle that contains very few pathological results.
+Kosmic follows the following steps:
+
+1.  Because the distribution of most laboratory results are skewed, a Box-Cox tranform is used on the data to reduce it.
+    The parameter `lambda` is chosen to do this.
+
+2.  Kosmic chooses a section in the middle of the data between two truncation limits, `t1` and `t2`.
+
+3.  It then finds the normal distribution that fits the results results in this section the closes.
+    The normal distribution is described by a `mean` and `sd`.
+
+4.  Steps 2 and 3 and repeated using many values of `t1` and `t2` to find the widest possible section that still fits a normal distribution well.
+
+5.  The reference intervals is calculated using the best distribution.
+
+## Data: Haemoglobin
+
+The `haemoglobin` dataset will be used to demonstrate Kosmic.
+It is also available using the American English spelling, `hemoglobin`.
+It is a simulated dataset containing random physiological test results which were chosen to have a true reference interval of 12.0--16.0 g/dL.
+These results have been contaminated with pathological results at the lower and upper end of the distribution.
+It is documented in `?haemoglobin`.
+
+```{r}
+haemoglobin
+```
+
+## How to estimate reference intervals using Kosmic
+
+Use `kosmic()` to estimate the distribution of physiological results.
+It takes as arguments a numeric vector of investigation results and the number of decimal places to use.
+Use the same number of decimal places as are use when reporting results, for example, haemoglobin in usually reported to 1 decimal place when quantitated as g/dL.
+Kosmic takes longer when it has to calculate to more decimal places.
+
+```{r}
+k <- kosmic(haemoglobin$result, decimals = 1)
+print(k)
+```
+
+Kosmic's results can be plotted using `plot()`.
+By default this displays a histogram of the original results, the estimated distribution of physiological results, and the reference interval.
+This graph of frequency can also be specified explicitly using the argument `type = "frequency"`.
+
+```{r}
+plot(k)
+```
+
+The same information can be shown using a cumulative histogram.
+
+```{r}
+plot(k, type="cumulative")
+```
+
+The 2.5th, 50th and 97.5th percentiles can be calculated from the estimated distribution using `summary()`, which will print them, or `quantile()`, which will return the reference interval as a vector.
+
+```{r}
+summary(k)
+ri <- quantile(k)
+class(ri)
+print(ri)
+```
+
+## How to estimate reference intervals and their confidence intervals
+
+TODO
+
+## References
+
+::: {#refs}
+:::
