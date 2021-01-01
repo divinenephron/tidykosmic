@@ -4,7 +4,7 @@
 #'
 #' @return
 #' @export
-kosmic_plot_data <- function(k) {
+kosmic_plot_data <- function(k, probs = c(0.025, 0.975)) {
   observed <- k$data
   m <- k$estimates[["mean"]]
   s <- k$estimates[["sd"]]
@@ -73,7 +73,14 @@ kosmic_plot_data <- function(k) {
       estimated.cum =
         estimated.p * scale_cum + below_t1_observed - below_t1_estimated
     )
-  list(data = data)
+  
+  quantiles <- data.frame(
+    prob = probs,
+    quantile = quantile(k, probs = probs, names = FALSE)
+  )
+  
+  list(data = data,
+       quantiles = quantiles)
 }
 
 #' Plot a Distribution Estimated by Kosmic
@@ -85,7 +92,8 @@ kosmic_plot_data <- function(k) {
 #' @rdname plot.kosmic
 #' @importFrom graphics plot
 #' @export
-plot.kosmic <- function(x, type = c("frequency", "cumulative"), ...) {
+plot.kosmic <- function(x, type = c("frequency", "cumulative"),
+                        probs = c(0.025, 0.975), ...) {
   print(autoplot(x, type, ...))
   invisible(x)
 }
@@ -93,7 +101,8 @@ plot.kosmic <- function(x, type = c("frequency", "cumulative"), ...) {
 #' @rdname plot.kosmic
 #' @importFrom ggplot2 ggplot geom_bar geom_line aes .data
 #' @export
-autoplot.kosmic <- function(object, type = c("frequency", "cumulative"), ...) {
+autoplot.kosmic <- function(object, type = c("frequency", "cumulative"),
+                            probs = c(0.025, 0.975), ...) {
   type <- arg_match(type)
   if (!inherits(object, "kosmic")) {
     abort("Use only with `kosmic` objects")
@@ -102,20 +111,26 @@ autoplot.kosmic <- function(object, type = c("frequency", "cumulative"), ...) {
   plot_data <- kosmic_plot_data(object)
   binwidth <- 10^-object$settings[["decimals"]]
   
-  g <- ggplot2::ggplot(plot_data$data)
+  g <- ggplot2::ggplot(plot_data$data) +
+    ggplot2::theme_classic()
   if (type == "frequency") {
     g +
       ggplot2::geom_bar(aes(x = .data$result, y = .data$observed.freq),
                         stat = "identity",
-                        width = binwidth) +
+                        width = binwidth,
+                        fill = "#FC5A45") +
       ggplot2::geom_line(aes(x = .data$result, y = .data$estimated.freq),
-                         color = "red")
+                         color = "black") +
+      ggplot2::geom_vline(aes(xintercept = quantile),
+                          data = plot_data$quantiles,
+                          linetype = "dashed")
   } else if (type == "cumulative") {
     g + 
       ggplot2::geom_bar(aes(x = .data$result, y = .data$observed.cum),
                         stat = "identity",
-                        width = binwidth) +
+                        width = binwidth,
+                        fill = "#FC5A45") +
       ggplot2::geom_line(aes(x = .data$result, y = .data$estimated.cum),
-                         color = "red")
+                         color = "black")
   }
 }
