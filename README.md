@@ -9,7 +9,7 @@
 This repository contains R bindings for Kosmic, a C++ library that can
 estimate reference intervals from routinely collected laboratory data.
 It does this by fitting a normal distribution to the central part of the
-observerved data. The [original C++
+observed data. The [original C++
 library](https://gitlab.miracum.org/kosmic/kosmic) was written by Jakob
 Zierk and others.
 
@@ -25,7 +25,11 @@ devtools::install_github("divinenephron/kosmic-r")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Here a reference interval is estimated for the simulated `haemoglobin`
+dataset which contains randomly generated physiological results and
+contamination from randomly generated pathological result. The true
+reference interval for this data is 12.0-16.0 g/dL, and the estimates by
+Kosmic estimates are close to these.
 
 ``` r
 library(kosmic)
