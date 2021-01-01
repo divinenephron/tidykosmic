@@ -18,7 +18,8 @@ to speed up the calculation of many probabilities.}
 \item{...}{}
 }
 \value{
-A vector of
+A numeric vector of the quantiles corresponding to the 2.5th, 50th and 97.5th percentile, or the
+probabilities given.
 }
 \description{
 Calculate Quantile for an Estimated Distribution of Physiological Results

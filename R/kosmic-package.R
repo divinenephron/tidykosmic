@@ -5,6 +5,7 @@
 #' @importFrom Rcpp sourceCpp
 #' @importFrom glue glue
 #' @importFrom stats quantile
+#' @importFrom rlang abort
 #' @import rlang
 #' @import dplyr
 "_PACKAGE"

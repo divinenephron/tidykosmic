@@ -248,7 +248,6 @@ print.kosmic <- function(x, ...) {
   invisible(x)
 }
 
-
 #' Calculate Quantile for an Estimated Distribution of Physiological Results
 #'
 #' @param x A kosmic result.
@@ -259,7 +258,8 @@ print.kosmic <- function(x, ...) {
 #' @param ...
 #'
 #' @return
-#' A vector of 
+#' A numeric vector of the quantiles corresponding to the 2.5th, 50th and 97.5th percentile, or the
+#' probabilities given.
 #' 
 #' @export
 quantile.kosmic <- function(x,
@@ -280,6 +280,36 @@ quantile.kosmic <- function(x,
   }
   
   res
+}
+
+#' Summarising Kosmic Objects
+#'
+#' @param object an object of class "kosmic", usually a result of a call to [kosmic][kosmic::kosmic()].
+#' @param probs a numeric vector, the quantiles of the estimated distribution to be reported
+#' in the summary. Probabilities with a value between 0 and 1 (exclusive).
+#' @param ... further arguments passed to or from other methods.
+#'
+#' @return
+#' The function `summary.kosmic` computes and returns 
+#' @export
+summary.kosmic <- function(object, 
+                           probs = c(0.025, 0.500, 0.975),
+                           ...) {
+  if (!inherits(object, "kosmic")) {
+    abort("Use only with `kosmic` objects")
+  }
+  quantiles <- quantile(object, probs = probs, names = TRUE)
+  structure(quantiles, class = "summary.kosmic")
+}
+
+#' @rdname summary.kosmic
+#' @export
+print.summary.kosmic <- function(x, ...) {
+  cat("An estimated distribution of physiological results\nwith the following quantiles:\n")
+  xx <- x
+  class(xx) <- class(x)[-1]
+  print(xx)
+  invisible(x)
 }
 
 # Change probabilities like 0.1 into percentage strings like "10%"
