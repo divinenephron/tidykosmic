@@ -11,7 +11,7 @@ To learn more about Kosmic, start with \code{\link{vignette("kosmic")}}.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://divinenephron.github.io/kosmic-r}
+  \item \url{https://www.divinenephron.co.uk/kosmic-r/}
   \item \url{https://github.com/divinenephron/kosmic-r}
   \item Report bugs at \url{https://github.com/divinenephron/kosmic-r/issues}
 }

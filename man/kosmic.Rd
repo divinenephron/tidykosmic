@@ -67,13 +67,6 @@ Estimates the distribution of physiological results from a mixed
 distribution of physiological and abnormal results, such as those found in
 laboratory databases.
 }
-\details{
-The kosmic algorithm works by minimizes the difference between an
-estimated parametric distribution and a truncated part of the observed
-distribution, specifically, the Kolmogorov-Smirnov-distance between a
-hypothetical Gaussian distribution and the observed distribution of test
-results after Box-Cox-transformation.
-}
 \examples{
 set.seed(1)
 k <- kosmic(haemoglobin$result, 1)
