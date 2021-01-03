@@ -102,10 +102,6 @@ class(ri)
 print(ri)
 ```
 
-## How to estimate reference intervals and their confidence intervals
-
-TODO
-
 ## References
 
 ::: {#refs}
