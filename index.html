@@ -75,12 +75,17 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="kosmic" class="section level1">
+<div id="kosmic-r-package" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#kosmic" class="anchor"></a>Kosmic</h1></div>
+<a href="#kosmic-r-package" class="anchor"></a>Kosmic R Package</h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
+<div id="overview" class="section level2">
+<h2 class="hasAnchor">
+<a href="#overview" class="anchor"></a>Overview</h2>
 <p>This repository contains R bindings for Kosmic, a C++ library that can estimate reference intervals from routinely collected laboratory data. It does this by fitting a normal distribution to the central part of the observed data. The <a href="https://gitlab.miracum.org/kosmic/kosmic">original C++ library</a> was written by Jakob Zierk and others.</p>
+<p>More documentation can be found on the <a href="https://divinenephron.co.uk/kosmic-r/">Kosmic R package website</a>.</p>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -89,12 +94,12 @@
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"divinenephron/kosmic-r"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="example" class="section level2">
+<div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
+<a href="#usage" class="anchor"></a>Usage</h2>
 <p>Here a reference interval is estimated for the simulated <code>haemoglobin</code> dataset which contains randomly generated physiological results and contamination from randomly generated pathological result. The true reference interval for this data is 12.0-16.0 g/dL, and the estimates from Kosmic are close.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://divinenephron.github.io/kosmic-r">kosmic</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.divinenephron.co.uk/kosmic-r/">kosmic</a></span><span class="op">)</span>
 <span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/kosmic.html">kosmic</a></span><span class="op">(</span><span class="va">haemoglobin</span><span class="op">$</span><span class="va">result</span>, decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example-1.png" width="100%"></p>
