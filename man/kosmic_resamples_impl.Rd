@@ -9,3 +9,4 @@ kosmic_resamples_impl(results, counts, replicates, settings)
 \description{
 Resample data using the same code as the Kosmic agorithm
 }
+\keyword{internal}

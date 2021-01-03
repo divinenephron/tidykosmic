@@ -68,3 +68,4 @@ This creates an S3 object to hold the results of the kosmic library being run
 on a set of data. It should be called by user-facing methods such as
 \code{kosmic()}.
 }
+\keyword{internal}

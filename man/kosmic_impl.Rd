@@ -19,3 +19,4 @@ kosmic_impl(
 \description{
 Call Kosmic algorithm
 }
+\keyword{internal}

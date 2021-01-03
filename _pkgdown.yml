@@ -1,1 +1,18 @@
 url: https://divinenephron.github.io/kosmic-r
+reference:
+- title: "Estimating a distribution using data"
+- contents:
+  - kosmic
+  - kosmic_bootstrap
+- title: "Analysing and reporting on the estimated distribution"
+- contents:
+  - summary.kosmic
+  - plot.kosmic
+  - quantile.kosmic
+- title: "Other functions"
+- contents:
+  - kosmic_resamples
+  - kosmic_plot_data
+- title: "Datasets"
+- contents:
+  - haemoglobin

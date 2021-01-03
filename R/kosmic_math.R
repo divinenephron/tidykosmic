@@ -7,6 +7,8 @@
 #'   tolerance, it is treated as if it were zero.
 #'
 #' @return A vector the same length as `y` or `ty`.
+#' 
+#' @keywords internal
 boxcox <- function(y, lambda, tolerance = 1e-6) {
   if (abs(lambda) < tolerance) {
     log(y)
@@ -27,18 +29,21 @@ boxcox_inverse <- function(ty, lambda, tolerance = 1e-6) {
 #' Box-Cox Transformed Normal Distribution
 #' 
 #' @rdname boxcox-distribution
+#' @keywords internal
 #' @export
 pboxcox <- function(q, mean = 0, sd = 1, lambda = 1, lower.tail = TRUE) {
   pnorm(boxcox(q, lambda), mean, sd, lower.tail)
 }
 
 #' @rdname boxcox-distribution
+#' @keywords internal
 #' @export
 qboxcox <- function(p, mean = 0, sd = 1, lambda = 1, lower.tail = TRUE) {
   boxcox_inverse(qnorm(p, mean, sd, lower.tail), lambda)
 }
 
 #' @rdname boxcox-distribution
+#' @keywords internal
 #' @export
 rboxcox <- function(n, mean = 0, sd = 1, lambda = 1) {
   boxcox_inverse(rnorm(n, mean, sd), lambda)

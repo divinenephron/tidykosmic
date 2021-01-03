@@ -9,6 +9,7 @@ using namespace Rcpp;
 
 //' Call Kosmic algorithm
 //' 
+//' @keywords internal
 // [[Rcpp::export]]
 List kosmic_impl(NumericVector input_vector, int decimals, int bootstrap,
                  double t1min, double t1max, double t2min, double t2max, double sd, double tol){
@@ -64,6 +65,7 @@ List kosmic_impl(NumericVector input_vector, int decimals, int bootstrap,
 
 //' Resample data using the same code as the Kosmic agorithm
 //' 
+//' @keywords internal
 // [[Rcpp::export]]
 List kosmic_resamples_impl(NumericVector results, NumericVector counts,
                                     int replicates, NumericVector settings) {

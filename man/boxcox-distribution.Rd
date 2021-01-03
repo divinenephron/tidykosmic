@@ -15,3 +15,4 @@ rboxcox(n, mean = 0, sd = 1, lambda = 1)
 \description{
 Box-Cox Transformed Normal Distribution
 }
+\keyword{internal}

@@ -4,12 +4,9 @@
 \name{kosmic-package}
 \alias{kosmic-package}
 \alias{_PACKAGE}
-\title{kosmic: Estimate Reference Intervals from Routinely Collected Laboratory Data}
+\title{Estimate Reference Intervals from Routinely Collected Laboratory Data}
 \description{
-Kosmic estimates the distribution of physiological results from a mixture of physiological
-             and pathological results, like those that are found in laboratory databases. It does this
-             by appying a Box-Cox transformation, then fitting a gaussian distribution to a truncated
-             part of the data. The estimated distribution can be used to calculated a reference interval.
+To learn more about Kosmic, start with \code{\link{vignette("kosmic")}}.
 }
 \seealso{
 Useful links:
@@ -21,7 +18,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Devon Buchanan \email{devon.buchanan@nhs.net}
+\strong{Maintainer}: Devon Buchanan \email{devon.buchanan@nhs.net} (Author of the R bindings)
 
 Authors:
 \itemize{

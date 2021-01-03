@@ -115,6 +115,8 @@ kosmic.numeric <- function(data,
 #' the estimated ditribution, a named vector of truncation limits, a named
 #' vector of kosmic settings, the number of original data points, and a
 #' frequency table of the original data.
+#' 
+#' @keywords internal
 new_kosmic <- function(data,
                        n,
                        lambda,
@@ -171,6 +173,8 @@ new_kosmic <- function(data,
 #'
 #' @return
 #' A `kosmic` object.
+#' 
+#' @keywords internal
 kosmic_bridge <- function(data,
                           decimals,
                           t1min,

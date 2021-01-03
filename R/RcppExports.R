@@ -3,12 +3,14 @@
 
 #' Call Kosmic algorithm
 #' 
+#' @keywords internal
 kosmic_impl <- function(input_vector, decimals, bootstrap, t1min, t1max, t2min, t2max, sd, tol) {
     .Call('_kosmic_kosmic_impl', PACKAGE = 'kosmic', input_vector, decimals, bootstrap, t1min, t1max, t2min, t2max, sd, tol)
 }
 
 #' Resample data using the same code as the Kosmic agorithm
 #' 
+#' @keywords internal
 kosmic_resamples_impl <- function(results, counts, replicates, settings) {
     .Call('_kosmic_kosmic_resamples_impl', PACKAGE = 'kosmic', results, counts, replicates, settings)
 }

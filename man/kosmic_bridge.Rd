@@ -12,3 +12,4 @@ A \code{kosmic} object.
 \description{
 Run Kosmic and Create an Object to Hold the Results
 }
+\keyword{internal}

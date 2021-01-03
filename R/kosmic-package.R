@@ -1,3 +1,7 @@
+#' Estimate Reference Intervals from Routinely Collected Laboratory Data
+#' 
+#' To learn more about Kosmic, start with [`vignette("kosmic")`].
+#' 
 #' @aliases kosmic-package
 #' @keywords internal
 #'

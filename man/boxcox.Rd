@@ -25,3 +25,4 @@ A vector the same length as \code{y} or \code{ty}.
 \description{
 Box-Cox Transform
 }
+\keyword{internal}
