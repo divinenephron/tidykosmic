@@ -4,7 +4,7 @@
 \alias{kosmic_plot_data}
 \title{Data to Easily Plot a Distribution Estimated by Kosmic}
 \usage{
-kosmic_plot_data(k)
+kosmic_plot_data(k, probs = c(0.025, 0.975))
 }
 \arguments{
 \item{k}{}

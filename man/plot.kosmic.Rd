@@ -5,9 +5,14 @@
 \alias{autoplot.kosmic}
 \title{Plot a Distribution Estimated by Kosmic}
 \usage{
-\method{plot}{kosmic}(x, type = c("frequency", "cumulative"), ...)
+\method{plot}{kosmic}(x, type = c("frequency", "cumulative"), probs = c(0.025, 0.975), ...)
 
-\method{autoplot}{kosmic}(object, type = c("frequency", "cumulative"), ...)
+\method{autoplot}{kosmic}(
+  object,
+  type = c("frequency", "cumulative"),
+  probs = c(0.025, 0.975),
+  ...
+)
 }
 \arguments{
 \item{x}{}

@@ -2,14 +2,32 @@
 % Please edit documentation in R/kosmic-package.R
 \docType{package}
 \name{kosmic-package}
-\alias{kosmic}
 \alias{kosmic-package}
-\title{kosmic: What the Package Does in One 'Title Case' Line}
+\alias{_PACKAGE}
+\title{kosmic: Estimate Reference Intervals from Routinely Collected Laboratory Data}
 \description{
-One paragraph description of what the package does as one
-        or more full sentences.
+Kosmic estimates the distribution of physiological results from a mixture of physiological
+             and pathological results, like those that are found in laboratory databases. It does this
+             by appying a Box-Cox transformation, then fitting a gaussian distribution to a truncated
+             part of the data. The estimated distribution can be used to calculated a reference interval.
 }
-\details{
-A package to estimate the distribution of reference values from a mix of
-physiological and abnormal results.
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://divinenephron.github.io/kosmic-r}
+  \item \url{https://github.com/divinenephron/kosmic-r}
+  \item Report bugs at \url{https://github.com/divinenephron/kosmic-r/issues}
 }
+
+}
+\author{
+\strong{Maintainer}: Devon Buchanan \email{devon.buchanan@nhs.net}
+
+Authors:
+\itemize{
+  \item Jakob Zierck \email{jakob.zierk@uk-erlangen.de} (Author of the Kosmic C++ library)
+  \item Farhad Arzideh \email{farhad.arzideh@uk-koeln.de} (Creator of original concept and prior implementations)
+}
+
+}
+\keyword{internal}

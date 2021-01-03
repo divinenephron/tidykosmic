@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# kosmic
+# Kosmic
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -42,4 +42,3 @@ plot(k)
 ```{r}
 summary(k)
 ```
-

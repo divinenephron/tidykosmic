@@ -7,11 +7,6 @@
 #'   tolerance, it is treated as if it were zero.
 #'
 #' @return A vector the same length as `y` or `ty`.
-#'
-#' @examples
-#' y <- seq(1:10)
-#' ty <- boxcox(y, 2.5)
-#' y2 <- boxcox_inverse(ty, 2.5)
 boxcox <- function(y, lambda, tolerance = 1e-6) {
   if (abs(lambda) < tolerance) {
     log(y)

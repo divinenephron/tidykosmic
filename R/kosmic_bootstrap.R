@@ -1,3 +1,5 @@
+#' Bootstrap Estimates of a Distribution of Physiological Results Using Kosmic
+#' 
 #' @rdname kosmic_bootstrap
 #' @export
 kosmic_bootstrap <- function(data, ...) {

@@ -1,6 +1,6 @@
-#' @details 
-#' A package to estimate the distribution of reference values from a mix of
-#' physiological and abnormal results.
+#' @aliases kosmic-package
+#' @keywords internal
+#'
 #' @useDynLib kosmic
 #' @importFrom Rcpp sourceCpp
 #' @importFrom glue glue

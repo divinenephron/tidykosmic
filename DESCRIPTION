@@ -3,22 +3,23 @@ Type: Package
 Title: Estimate Reference Intervals from Routinely Collected Laboratory Data
 Version: 0.0.0.9000
 Date: 2020-01-01
-Author@R: c(person("Devon", "Buchanan", email="devon.buchanan@nhs.net", role = c("aut", "cre")),
+Authors@R: c(person("Devon", "Buchanan", email="devon.buchanan@nhs.net", role = c("aut", "cre")),
             person("Jakob", "Zierck", email="jakob.zierk@uk-erlangen.de", role = c("aut"),
                    comment = "Author of the Kosmic C++ library"),
-            person("Farhad", "Arzideh", email = "farhad.arzideh@uk-koeln.de", role = c("ccp"),
+            person("Farhad", "Arzideh", email = "farhad.arzideh@uk-koeln.de", role = c("aut"),
                    comment = "Creator of original concept and prior implementations"))
 Description: Kosmic estimates the distribution of physiological results from a mixture of physiological
              and pathological results, like those that are found in laboratory databases. It does this
              by appying a Box-Cox transformation, then fitting a gaussian distribution to a truncated
              part of the data. The estimated distribution can be used to calculated a reference interval.
-URL: https://github.com/divinenephron/kosmic-r
+URL: https://divinenephron.github.io/kosmic-r, https://github.com/divinenephron/kosmic-r
 BugReports: https://github.com/divinenephron/kosmic-r/issues
 Encoding: UTF-8
 License: GPL-3
 Imports: 
     Rcpp,
     rlang,
+    glue,
     dplyr,
     ggplot2
 LinkingTo: Rcpp

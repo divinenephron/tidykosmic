@@ -25,8 +25,3 @@ A vector the same length as \code{y} or \code{ty}.
 \description{
 Box-Cox Transform
 }
-\examples{
-y <- seq(1:10)
-ty <- boxcox(y, 2.5)
-y2 <- boxcox_inverse(ty, 2.5)
-}
