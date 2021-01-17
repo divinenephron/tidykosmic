@@ -5,17 +5,18 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Estimate Reference Intervals from Routinely Collected Laboratory Data • kosmic</title>
+<title>Estimate Reference Intervals from Routinely Collected Laboratory Data • tidykosmic</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Estimate Reference Intervals from Routinely Collected Laboratory Data">
-<meta property="og:description" content="Kosmic estimates the distribution of physiological results from a mixture of physiological
+<meta property="og:description" content="tidykosmic estimates the distribution of physiological results from a mixture of physiological
              and pathological results, like those that are found in laboratory databases. It does this
              by appying a Box-Cox transformation, then fitting a gaussian distribution to a truncated
-             part of the data. The estimated distribution can be used to calculated a reference interval.">
+             part of the data. The estimated distribution can be used to calculated a reference interval.
+             It uses the Kosmic C++ library.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -33,7 +34,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">kosmic</a>
+        <a class="navbar-link" href="index.html">tidykosmic</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
@@ -47,7 +48,7 @@
   </a>
 </li>
 <li>
-  <a href="articles/kosmic.html">Get started</a>
+  <a href="articles/tidykosmic.html">Get started</a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -58,7 +59,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/divinenephron/kosmic-r/">
+  <a href="https://github.com/divinenephron/tidykosmic/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -75,31 +76,31 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="kosmic-r-package" class="section level1">
+<div id="tidykosmic-r-package" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#kosmic-r-package" class="anchor"></a>Kosmic R Package</h1></div>
+<a href="#tidykosmic-r-package" class="anchor"></a>tidykosmic R Package</h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>The Kosmic R package estimates reference intervals from routinely collected laboratory data. It does this by fitting a normal distribution to the central part of the observed data. The <a href="https://gitlab.miracum.org/kosmic/kosmic">original C++ library</a> was written by Jakob Zierk and others.</p>
-<p>The documentation can be found on the <a href="https://www.divinenephron.co.uk/kosmic-r/">Kosmic R package website</a>.</p>
+<p>The tidykosmic R package estimates reference intervals from routinely collected laboratory data. It does this by fitting a normal distribution to the central part of the observed data. The <a href="https://gitlab.miracum.org/kosmic/kosmic">original C++ library</a> was written by Jakob Zierk and others.</p>
+<p>The documentation can be found on the <a href="https://www.divinenephron.co.uk/tidykosmic/">tidykosmic R package website</a>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>The R bindings for Kosmic are still under development. You can install the development version from GitHub.</p>
+<p>Tidykosmic is still under development. You can install the development version from GitHub.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"divinenephron/kosmic-r"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"divinenephron/tidykosmic"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>Here a reference interval is estimated for the simulated <code>haemoglobin</code> dataset which contains randomly generated physiological results and contamination from randomly generated pathological result. The true reference interval for this data is 12.0-16.0 g/dL, and the estimates from Kosmic are close.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.divinenephron.co.uk/kosmic-r/">kosmic</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.divinenephron.co.uk/tidykosmic/">tidykosmic</a></span><span class="op">)</span>
 <span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/kosmic.html">kosmic</a></span><span class="op">(</span><span class="va">haemoglobin</span><span class="op">$</span><span class="va">result</span>, decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">k</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example-1.png" width="100%"></p>
@@ -117,9 +118,9 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/divinenephron/kosmic-r/">https://​github.com/​divinenephron/​kosmic-r/​</a>
+<li>Browse source code at <br><a href="https://github.com/divinenephron/tidykosmic/">https://​github.com/​divinenephron/​tidykosmic/​</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/divinenephron/kosmic-r/issues">https://​github.com/​divinenephron/​kosmic-r/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/divinenephron/tidykosmic/issues">https://​github.com/​divinenephron/​tidykosmic/​issues</a>
 </li>
 </ul>
 </div>
@@ -133,7 +134,7 @@
 <div class="citation">
 <h2>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing kosmic</a></li>
+<li><a href="authors.html">Citing tidykosmic</a></li>
 </ul>
 </div>
 <div class="developers">

@@ -13,9 +13,6 @@
     <loc>https://www.divinenephron.co.uk/kosmic-r//reference/haemoglobin.html</loc>
   </url>
   <url>
-    <loc>https://www.divinenephron.co.uk/kosmic-r//reference/kosmic-package.html</loc>
-  </url>
-  <url>
     <loc>https://www.divinenephron.co.uk/kosmic-r//reference/kosmic.html</loc>
   </url>
   <url>
@@ -52,6 +49,9 @@
     <loc>https://www.divinenephron.co.uk/kosmic-r//reference/summary.kosmic.html</loc>
   </url>
   <url>
-    <loc>https://www.divinenephron.co.uk/kosmic-r//articles/kosmic.html</loc>
+    <loc>https://www.divinenephron.co.uk/kosmic-r//reference/tidykosmic-package.html</loc>
+  </url>
+  <url>
+    <loc>https://www.divinenephron.co.uk/kosmic-r//articles/tidykosmic.html</loc>
   </url>
 </urlset>

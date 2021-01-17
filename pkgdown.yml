@@ -2,8 +2,8 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  kosmic: kosmic.html
-last_built: 2021-01-11T10:36Z
+  tidykosmic: tidykosmic.html
+last_built: 2021-01-17T10:49Z
 urls:
   reference: https://www.divinenephron.co.uk/kosmic-r//reference
   article: https://www.divinenephron.co.uk/kosmic-r//articles
