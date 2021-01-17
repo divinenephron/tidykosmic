@@ -3,7 +3,7 @@
 # the existing "haemoglobin" variable.
 hemoglobin_env <- new.env()
 load(system.file("data", "haemoglobin.rda",
-                 package = "kosmic"),
+                 package = "tidykosmic"),
      envir = hemoglobin_env)
 hemoglobin <- hemoglobin_env$haemoglobin
 rm(hemoglobin_env)

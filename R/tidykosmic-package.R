@@ -1,11 +1,11 @@
 #' Estimate Reference Intervals from Routinely Collected Laboratory Data
 #' 
-#' To learn more about Kosmic, start with [`vignette("kosmic")`].
+#' To learn more about Kosmic, start with [`vignette("tidykosmic")`].
 #' 
-#' @aliases kosmic-package
+#' @aliases tidykosmic-package
 #' @keywords internal
 #'
-#' @useDynLib kosmic
+#' @useDynLib tidykosmic
 #' @importFrom Rcpp sourceCpp
 #' @importFrom glue glue
 #' @importFrom stats quantile

@@ -1,4 +1,4 @@
-# kosmic 0.0.0.9000
+# tidykosmic 0.0.0.9000
 
 * First development version.
 * Contains a working `kosmic()` and `kosmic_bootstrap()`.

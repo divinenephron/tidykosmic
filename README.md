@@ -1,30 +1,30 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Kosmic R Package
+# tidykosmic R Package
 
 <!-- badges: start -->
 <!-- badges: end -->
 
 ## Overview
 
-The Kosmic R package estimates reference intervals from routinely
+The tidykosmic R package estimates reference intervals from routinely
 collected laboratory data. It does this by fitting a normal distribution
 to the central part of the observed data. The [original C++
 library](https://gitlab.miracum.org/kosmic/kosmic) was written by Jakob
 Zierk and others.
 
-The documentation can be found on the [Kosmic R package
-website](https://www.divinenephron.co.uk/kosmic-r/).
+The documentation can be found on the [tidykosmic R package
+website](https://www.divinenephron.co.uk/tidykosmic/).
 
 ## Installation
 
-The R bindings for Kosmic are still under development. You can install
-the development version from GitHub.
+Tidykosmic is still under development. You can install the development
+version from GitHub.
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("divinenephron/kosmic-r")
+devtools::install_github("divinenephron/tidykosmic")
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ reference interval for this data is 12.0-16.0 g/dL, and the estimates
 from Kosmic are close.
 
 ``` r
-library(kosmic)
+library(tidykosmic)
 k <- kosmic(haemoglobin$result, decimals = 1)
 plot(k)
 ```

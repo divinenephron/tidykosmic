@@ -1,9 +1,9 @@
 ---
-title: "Introduction to Kosmic"
-bibliography: "`r system.file('references.bib', package='kosmic')`"
+title: "Introduction to tidykosmic"
+bibliography: "`r system.file('references.bib', package='tidykosmic')`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to Kosmic}
+  %\VignetteIndexEntry{Introduction to tidykosmic}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,11 +16,11 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup, echo = FALSE}
-library(kosmic)
+library(tidykosmic)
 options(max.print = 16)
 ```
 
-## The Purpose of Kosmic: Reference Intervals
+## The Purpose of tidykosmic: Reference Intervals
 
 Most medical laboratory results are interpreted by comparing them to a reference interval, which describe the results you would expect in a healthy population.
 Reference intervals are established by first identifying reference individuals who meet pre-specified criteria for being "healthy", then performing the laboratory investigation of interest on them.
@@ -35,9 +35,9 @@ A lot of resources are needed to recruit the healthy participants perform the in
 The limitation of direct methods of establishing reference intervals mean that "indirect" methods that mine routine laboratory data can be preferable.
 These methods require fewer resources because the data needed for them is readily available, and they can make use of large amounts of data, leading to narrow confidence intervals around the reference limits.
 The main limitation of indirect methods is that routine laboratory data will be contaminated with pathological results, which will affect the reference intervals calculated.
-Kosmic is a tool that reduce the effect of this contamination, which was originally created by @zierkReferenceIntervalEstimation2020.
+tidykosmic is a tool that reduce the effect of this contamination, which was originally created by @zierkReferenceIntervalEstimation2020.
 
-## How does Kosmic work?
+## How does tidykosmic work?
 
 Kosmic estimates the distribution of physiological results (reference values) from routine laboratory data that is contaminated with pathological results.
 It relies on the observation that the pathological results usually fall on the edge of the distribution of physiological result, so there is a section in the middle that contains very few pathological results.
@@ -79,7 +79,7 @@ k <- kosmic(haemoglobin$result, decimals = 1)
 print(k)
 ```
 
-Kosmic's results can be plotted using `plot()`.
+tidykosmic's results can be plotted using `plot()`.
 By default this displays a histogram of the original results, the estimated distribution of physiological results, and the reference interval.
 This graph of frequency can also be specified explicitly using the argument `type = "frequency"`.
 

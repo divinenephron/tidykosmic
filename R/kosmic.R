@@ -282,7 +282,7 @@ quantile.kosmic <- function(x,
 
 #' Summarising Kosmic Objects
 #'
-#' @param object an object of class "kosmic", usually a result of a call to [kosmic][kosmic::kosmic()].
+#' @param object an object of class "kosmic", usually a result of a call to [kosmic][tidykosmic::kosmic()].
 #' @param probs a numeric vector, the quantiles of the estimated distribution to be reported
 #' in the summary. Probabilities with a value between 0 and 1 (exclusive).
 #' @param ... further arguments passed to or from other methods.

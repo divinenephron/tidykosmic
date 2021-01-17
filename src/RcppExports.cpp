@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // kosmic_impl
 List kosmic_impl(NumericVector input_vector, int decimals, int bootstrap, double t1min, double t1max, double t2min, double t2max, double sd, double tol);
-RcppExport SEXP _kosmic_kosmic_impl(SEXP input_vectorSEXP, SEXP decimalsSEXP, SEXP bootstrapSEXP, SEXP t1minSEXP, SEXP t1maxSEXP, SEXP t2minSEXP, SEXP t2maxSEXP, SEXP sdSEXP, SEXP tolSEXP) {
+RcppExport SEXP _tidykosmic_kosmic_impl(SEXP input_vectorSEXP, SEXP decimalsSEXP, SEXP bootstrapSEXP, SEXP t1minSEXP, SEXP t1maxSEXP, SEXP t2minSEXP, SEXP t2maxSEXP, SEXP sdSEXP, SEXP tolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -26,7 +26,7 @@ END_RCPP
 }
 // kosmic_resamples_impl
 List kosmic_resamples_impl(NumericVector results, NumericVector counts, int replicates, NumericVector settings);
-RcppExport SEXP _kosmic_kosmic_resamples_impl(SEXP resultsSEXP, SEXP countsSEXP, SEXP replicatesSEXP, SEXP settingsSEXP) {
+RcppExport SEXP _tidykosmic_kosmic_resamples_impl(SEXP resultsSEXP, SEXP countsSEXP, SEXP replicatesSEXP, SEXP settingsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -40,12 +40,12 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_kosmic_kosmic_impl", (DL_FUNC) &_kosmic_kosmic_impl, 9},
-    {"_kosmic_kosmic_resamples_impl", (DL_FUNC) &_kosmic_kosmic_resamples_impl, 4},
+    {"_tidykosmic_kosmic_impl", (DL_FUNC) &_tidykosmic_kosmic_impl, 9},
+    {"_tidykosmic_kosmic_resamples_impl", (DL_FUNC) &_tidykosmic_kosmic_resamples_impl, 4},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_kosmic(DllInfo *dll) {
+RcppExport void R_init_tidykosmic(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

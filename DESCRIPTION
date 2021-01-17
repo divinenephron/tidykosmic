@@ -1,4 +1,4 @@
-Package: kosmic
+Package: tidykosmic
 Type: Package
 Title: Estimate Reference Intervals from Routinely Collected Laboratory Data
 Version: 0.0.0.9000
@@ -9,12 +9,13 @@ Authors@R: c(person("Devon", "Buchanan", email="devon.buchanan@nhs.net", role = 
                    comment = "Author of the Kosmic C++ library"),
             person("Farhad", "Arzideh", email = "farhad.arzideh@uk-koeln.de", role = c("aut"),
                    comment = "Creator of original concept and prior implementations"))
-Description: Kosmic estimates the distribution of physiological results from a mixture of physiological
+Description: tidykosmic estimates the distribution of physiological results from a mixture of physiological
              and pathological results, like those that are found in laboratory databases. It does this
              by appying a Box-Cox transformation, then fitting a gaussian distribution to a truncated
              part of the data. The estimated distribution can be used to calculated a reference interval.
-URL: https://www.divinenephron.co.uk/kosmic-r/, https://github.com/divinenephron/kosmic-r
-BugReports: https://github.com/divinenephron/kosmic-r/issues
+             It uses the Kosmic C++ library.
+URL: https://www.divinenephron.co.uk/tidykosmic/, https://github.com/divinenephron/tidykosmic
+BugReports: https://github.com/divinenephron/tidykosmic/issues
 Encoding: UTF-8
 License: GPL-3
 Imports: 
