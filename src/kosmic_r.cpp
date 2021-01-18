@@ -7,7 +7,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-//' Call Kosmic algorithm
+//' Call kosmic algorithm
 //' 
 //' @keywords internal
 // [[Rcpp::export]]
@@ -63,7 +63,7 @@ List kosmic_impl(NumericVector input_vector, int decimals, int bootstrap,
     Named("boot", r_boot));
 }
 
-//' Resample data using the same code as the Kosmic agorithm
+//' Resample data using the same code as the kosmic agorithm
 //' 
 //' @keywords internal
 // [[Rcpp::export]]

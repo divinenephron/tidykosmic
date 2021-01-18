@@ -5,15 +5,15 @@ Version: 0.0.0.9000
 Date: 2020-01-01
 Authors@R: c(person("Devon", "Buchanan", email="devon.buchanan@nhs.net", role = c("aut", "cre"),
                     comment = "Author of the R bindings"),
-            person("Jakob", "Zierck", email="jakob.zierk@uk-erlangen.de", role = c("aut"),
-                   comment = "Author of the Kosmic C++ library"),
+            person("Jakob", "Zierk", email="jakob.zierk@uk-erlangen.de", role = c("aut"),
+                   comment = "Author of the kosmic C++ library"),
             person("Farhad", "Arzideh", email = "farhad.arzideh@uk-koeln.de", role = c("aut"),
                    comment = "Creator of original concept and prior implementations"))
 Description: tidykosmic estimates the distribution of physiological results from a mixture of physiological
              and pathological results, like those that are found in laboratory databases. It does this
              by appying a Box-Cox transformation, then fitting a gaussian distribution to a truncated
              part of the data. The estimated distribution can be used to calculated a reference interval.
-             It uses the Kosmic C++ library.
+             It uses the kosmic C++ library created by Zierk et al (2020).
 URL: https://www.divinenephron.co.uk/tidykosmic/, https://github.com/divinenephron/tidykosmic
 BugReports: https://github.com/divinenephron/tidykosmic/issues
 Encoding: UTF-8

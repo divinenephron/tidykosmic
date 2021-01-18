@@ -2,7 +2,7 @@
 % Please edit documentation in R/kosmic.R
 \name{kosmic_bridge}
 \alias{kosmic_bridge}
-\title{Run Kosmic and Create an Object to Hold the Results}
+\title{Run kosmic and Create an Object to Hold the Results}
 \usage{
 kosmic_bridge(data, decimals, t1min, t1max, t2min, t2max, sd_guess, abstol)
 }
@@ -10,6 +10,6 @@ kosmic_bridge(data, decimals, t1min, t1max, t2min, t2max, sd_guess, abstol)
 A \code{kosmic} object.
 }
 \description{
-Run Kosmic and Create an Object to Hold the Results
+Run kosmic and Create an Object to Hold the Results
 }
 \keyword{internal}

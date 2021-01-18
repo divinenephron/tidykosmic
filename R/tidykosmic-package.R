@@ -1,6 +1,6 @@
 #' Estimate Reference Intervals from Routinely Collected Laboratory Data
 #' 
-#' To learn more about Kosmic, start with [`vignette("tidykosmic")`].
+#' To learn more about kosmic, start with [`vignette("tidykosmic")`].
 #' 
 #' @aliases tidykosmic-package
 #' @keywords internal

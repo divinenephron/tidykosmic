@@ -2,7 +2,7 @@
 % Please edit documentation in R/kosmic_bootstrap.R
 \name{kosmic_resamples}
 \alias{kosmic_resamples}
-\title{Resamples of a Kosmic Bootstrap}
+\title{Resamples of a kosmic bootstrap}
 \usage{
 kosmic_resamples(object)
 }

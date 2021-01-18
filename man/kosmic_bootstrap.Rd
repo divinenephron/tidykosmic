@@ -4,7 +4,7 @@
 \alias{kosmic_bootstrap}
 \alias{kosmic_bootstrap.default}
 \alias{kosmic_bootstrap.numeric}
-\title{Bootstrap Estimates of a Distribution of Physiological Results Using Kosmic}
+\title{Bootstrap estimates of a distribution of physiological results using kosmic}
 \usage{
 kosmic_bootstrap(data, ...)
 
@@ -25,5 +25,5 @@ kosmic_bootstrap(data, ...)
 )
 }
 \description{
-Bootstrap Estimates of a Distribution of Physiological Results Using Kosmic
+Bootstrap estimates of a distribution of physiological results using kosmic
 }

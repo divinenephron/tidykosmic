@@ -57,7 +57,7 @@ Kosmic follows the following steps:
 
 ## Data: Haemoglobin
 
-The `haemoglobin` dataset will be used to demonstrate Kosmic.
+The `haemoglobin` dataset will be used to demonstrate kosmic.
 It is also available using the American English spelling, `hemoglobin`.
 It is a simulated dataset containing random physiological test results which were chosen to have a true reference interval of 12.0--16.0 g/dL.
 These results have been contaminated with pathological results at the lower and upper end of the distribution.
@@ -67,7 +67,7 @@ It is documented in `?haemoglobin`.
 haemoglobin
 ```
 
-## How to estimate reference intervals using Kosmic
+## How to estimate reference intervals using kosmic
 
 Use `kosmic()` to estimate the distribution of physiological results.
 It takes as arguments a numeric vector of investigation results and the number of decimal places to use.

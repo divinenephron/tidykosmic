@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{kosmic_impl}
 \alias{kosmic_impl}
-\title{Call Kosmic algorithm}
+\title{Call kosmic algorithm}
 \usage{
 kosmic_impl(
   input_vector,
@@ -17,6 +17,6 @@ kosmic_impl(
 )
 }
 \description{
-Call Kosmic algorithm
+Call kosmic algorithm
 }
 \keyword{internal}

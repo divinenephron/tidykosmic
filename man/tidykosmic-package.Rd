@@ -6,7 +6,7 @@
 \alias{_PACKAGE}
 \title{Estimate Reference Intervals from Routinely Collected Laboratory Data}
 \description{
-To learn more about Kosmic, start with \code{\link{vignette("tidykosmic")}}.
+To learn more about kosmic, start with \code{\link{vignette("tidykosmic")}}.
 }
 \seealso{
 Useful links:
@@ -22,7 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Jakob Zierck \email{jakob.zierk@uk-erlangen.de} (Author of the Kosmic C++ library)
+  \item Jakob Zierk \email{jakob.zierk@uk-erlangen.de} (Author of the kosmic C++ library)
   \item Farhad Arzideh \email{farhad.arzideh@uk-koeln.de} (Creator of original concept and prior implementations)
 }
 

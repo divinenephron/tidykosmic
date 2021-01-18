@@ -10,7 +10,7 @@
 
 The tidykosmic R package estimates reference intervals from routinely
 collected laboratory data. It does this by fitting a normal distribution
-to the central part of the observed data. The [original C++
+to the central part of the observed data. The [original kosmic C++
 library](https://gitlab.miracum.org/kosmic/kosmic) was written by Jakob
 Zierk and others.
 
@@ -33,7 +33,7 @@ Here a reference interval is estimated for the simulated `haemoglobin`
 dataset which contains randomly generated physiological results and
 contamination from randomly generated pathological result. The true
 reference interval for this data is 12.0-16.0 g/dL, and the estimates
-from Kosmic are close.
+from kosmic are close.
 
 ``` r
 library(tidykosmic)

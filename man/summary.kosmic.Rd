@@ -3,7 +3,7 @@
 \name{summary.kosmic}
 \alias{summary.kosmic}
 \alias{print.summary.kosmic}
-\title{Summarising Kosmic Objects}
+\title{Summarising kosmic objects}
 \usage{
 \method{summary}{kosmic}(object, probs = c(0.025, 0.5, 0.975), ...)
 
@@ -21,5 +21,5 @@ in the summary. Probabilities with a value between 0 and 1 (exclusive).}
 The function \code{summary.kosmic} computes and returns
 }
 \description{
-Summarising Kosmic Objects
+Summarising kosmic objects
 }

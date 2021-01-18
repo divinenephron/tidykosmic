@@ -4,7 +4,7 @@
 \alias{kosmic}
 \alias{kosmic.default}
 \alias{kosmic.numeric}
-\title{Estimate a Distribution of Physiological Results Using Kosmic}
+\title{Estimate a distribution of physiological results using kosmic}
 \usage{
 kosmic(data, ...)
 

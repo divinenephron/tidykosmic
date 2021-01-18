@@ -1,4 +1,4 @@
-#' Bootstrap Estimates of a Distribution of Physiological Results Using Kosmic
+#' Bootstrap estimates of a distribution of physiological results using kosmic
 #' 
 #' @rdname kosmic_bootstrap
 #' @export
@@ -69,7 +69,7 @@ kosmic_bootstrap_bridge <- function(data, decimals, replicates,
   if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) runif(1)
   seed <- get(".Random.seed", envir = .GlobalEnv, inherits = FALSE)
   
-  # Run the Kosmic algorithm on the original data
+  # Run the kosmic algorithm on the original data
   impl_result <- kosmic_impl(data,
                              trunc(decimals),
                              trunc(replicates),
@@ -130,7 +130,7 @@ new_kosmic_bootstrap <- function(data, n,
   res
 }
 
-#' Resamples of a Kosmic Bootstrap
+#' Resamples of a kosmic bootstrap
 #'
 #' @description This function takes an object created by \code{kosmic_bootstrap}
 #'   and returns the resampled data it uses.

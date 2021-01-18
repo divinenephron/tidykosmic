@@ -2,11 +2,11 @@
 % Please edit documentation in R/RcppExports.R
 \name{kosmic_resamples_impl}
 \alias{kosmic_resamples_impl}
-\title{Resample data using the same code as the Kosmic agorithm}
+\title{Resample data using the same code as the kosmic agorithm}
 \usage{
 kosmic_resamples_impl(results, counts, replicates, settings)
 }
 \description{
-Resample data using the same code as the Kosmic agorithm
+Resample data using the same code as the kosmic agorithm
 }
 \keyword{internal}

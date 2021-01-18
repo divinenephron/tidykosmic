@@ -1,4 +1,4 @@
-#' Estimate a Distribution of Physiological Results Using Kosmic
+#' Estimate a distribution of physiological results using kosmic
 #'
 #' @description Estimates the distribution of physiological results from a mixed
 #'   distribution of physiological and abnormal results, such as those found in
@@ -163,7 +163,7 @@ new_kosmic <- function(data,
             class = c(class, "kosmic"))
 }
 
-#' Run Kosmic and Create an Object to Hold the Results
+#' Run kosmic and Create an Object to Hold the Results
 #'
 #' @return
 #' A `kosmic` object.
@@ -196,7 +196,7 @@ kosmic_bridge <- function(data,
     }
   }
 
-  # Run the Kosmic algorithm, written in C++
+  # Run the kosmic algorithm, written in C++
   impl_result <- kosmic_impl(data,
                              trunc(decimals),
                              0L,
@@ -280,7 +280,7 @@ quantile.kosmic <- function(x,
   res
 }
 
-#' Summarising Kosmic Objects
+#' Summarising kosmic objects
 #'
 #' @param object an object of class "kosmic", usually a result of a call to [kosmic][tidykosmic::kosmic()].
 #' @param probs a numeric vector, the quantiles of the estimated distribution to be reported
