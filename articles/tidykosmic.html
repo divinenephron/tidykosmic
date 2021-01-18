@@ -105,7 +105,7 @@
 <div id="data-haemoglobin" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-haemoglobin" class="anchor"></a>Data: Haemoglobin</h2>
-<p>The <code>haemoglobin</code> dataset will be used to demonstrate Kosmic. It is also available using the American English spelling, <code>hemoglobin</code>. It is a simulated dataset containing random physiological test results which were chosen to have a true reference interval of 12.0–16.0 g/dL. These results have been contaminated with pathological results at the lower and upper end of the distribution. It is documented in <code><a href="../reference/haemoglobin.html">?haemoglobin</a></code>.</p>
+<p>The <code>haemoglobin</code> dataset will be used to demonstrate kosmic. It is also available using the American English spelling, <code>hemoglobin</code>. It is a simulated dataset containing random physiological test results which were chosen to have a true reference interval of 12.0–16.0 g/dL. These results have been contaminated with pathological results at the lower and upper end of the distribution. It is documented in <code><a href="../reference/haemoglobin.html">?haemoglobin</a></code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">haemoglobin</span>
 <span class="co">#&gt;   result  age sex</span>
@@ -118,7 +118,7 @@
 </div>
 <div id="how-to-estimate-reference-intervals-using-kosmic" class="section level2">
 <h2 class="hasAnchor">
-<a href="#how-to-estimate-reference-intervals-using-kosmic" class="anchor"></a>How to estimate reference intervals using Kosmic</h2>
+<a href="#how-to-estimate-reference-intervals-using-kosmic" class="anchor"></a>How to estimate reference intervals using kosmic</h2>
 <p>Use <code><a href="../reference/kosmic.html">kosmic()</a></code> to estimate the distribution of physiological results. It takes as arguments a numeric vector of investigation results and the number of decimal places to use. Use the same number of decimal places as are use when reporting results, for example, haemoglobin in usually reported to 1 decimal place when quantitated as g/dL. Kosmic takes longer when it has to calculate to more decimal places.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/kosmic.html">kosmic</a></span><span class="op">(</span><span class="va">haemoglobin</span><span class="op">$</span><span class="va">result</span>, decimals <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
@@ -188,7 +188,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Devon Buchanan, Jakob Zierck, Farhad Arzideh.</p>
+  <p>Developed by Devon Buchanan, Jakob Zierk, Farhad Arzideh.</p>
 </div>
 
 <div class="pkgdown">
