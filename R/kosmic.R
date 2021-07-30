@@ -6,7 +6,7 @@
 #'
 #' @param data A numeric vector. A mixed distribution of physiological and
 #'   abnormal results.
-#' @param decimals A positive integer. The number of digits of precision to
+#' @param decimals An integer. The number of digits of precision to
 #'   calculate the results to. Increasing this makes the algorithm take longer.
 #' @param t1min A quantile. Start of the search range for T1.
 #' @param t1max A quantile. End of the search range for T1.
@@ -132,8 +132,8 @@ new_kosmic <- function(data,
   if(!is_bare_numeric(n, n=1) | n <= 0) {
     abort("`n` must be a single positive integer.")
   }
-  if(!is_bare_numeric(decimals, n=1) | decimals <= 0) {
-    abort("`decimals` must be a single positive integer.")
+  if(!is_bare_numeric(decimals, n=1)) {
+    abort("`decimals` must be or a single integer.")
   }
   for (arg in exprs(mean, sd, t1, t2, decimals,
                     t1min, t1max, t2min, t2max,
@@ -180,8 +180,8 @@ kosmic_bridge <- function(data,
   if(!is.numeric(data)) {
     abort("`data` must be a numeric vector.")
   }
-  if(!is_bare_numeric(decimals, n = 1) | decimals < 0) {
-    abort("`decimals` must be a single number >= 0.")
+  if(!is_bare_numeric(decimals, n = 1)) {
+    abort("`decimals` must be a single integer.")
   }
   if(!is_bare_numeric(abstol, n = 1) | abstol <= 0) {
     abort("`abstol` must be a single number > 0.")

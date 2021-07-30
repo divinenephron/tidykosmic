@@ -27,7 +27,7 @@ kosmic(data, ...)
 \item{data}{A numeric vector. A mixed distribution of physiological and
 abnormal results.}
 
-\item{decimals}{A positive integer. The number of digits of precision to
+\item{decimals}{An integer. The number of digits of precision to
 calculate the results to. Increasing this makes the algorithm take longer.}
 
 \item{t1min}{A quantile. Start of the search range for T1.}
